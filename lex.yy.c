@@ -501,9 +501,9 @@ int yy_flex_debug = 0;
 #define YY_MORE_ADJ 0
 #define YY_RESTORE_YY_MORE_OFFSET
 char *yytext;
-#line 1 "test.l"
+#line 1 "lexical_analyzer.l"
 /* Definition Section */
-#line 5 "test.l"
+#line 5 "lexical_analyzer.l"
     #include <stdio.h>
 #line 509 "lex.yy.c"
 /* Rule Section */
@@ -724,7 +724,7 @@ YY_DECL
 		}
 
 	{
-#line 9 "test.l"
+#line 9 "lexical_analyzer.l"
 
 
 
@@ -787,294 +787,294 @@ do_action:	/* This label is used only to access EOF actions. */
 
 case 1:
 YY_RULE_SETUP
-#line 12 "test.l"
+#line 12 "lexical_analyzer.l"
 {
     printf("TOKEN_INT\n");
 }
 	YY_BREAK
 case 2:
 YY_RULE_SETUP
-#line 15 "test.l"
+#line 15 "lexical_analyzer.l"
 {
     printf("TOKEN_CHAR\n");
 }
 	YY_BREAK
 case 3:
 YY_RULE_SETUP
-#line 18 "test.l"
+#line 18 "lexical_analyzer.l"
 {
     printf("TOKEN_IF\n");
 }
 	YY_BREAK
 case 4:
 YY_RULE_SETUP
-#line 21 "test.l"
+#line 21 "lexical_analyzer.l"
 {
     printf("TOKEN_ELSE\n");
 }
 	YY_BREAK
 case 5:
 YY_RULE_SETUP
-#line 24 "test.l"
+#line 24 "lexical_analyzer.l"
 {
     printf("TOKEN_ELSEIF\n");
 }
 	YY_BREAK
 case 6:
 YY_RULE_SETUP
-#line 27 "test.l"
+#line 27 "lexical_analyzer.l"
 {
     printf("TOKEN_WHILE\n");
 }
 	YY_BREAK
 case 7:
 YY_RULE_SETUP
-#line 30 "test.l"
+#line 30 "lexical_analyzer.l"
 {
     printf("TOKEN_FOR\n");
 }
 	YY_BREAK
 case 8:
 YY_RULE_SETUP
-#line 33 "test.l"
+#line 33 "lexical_analyzer.l"
 {
     printf("TOKEN_RETURN\n");
 }
 	YY_BREAK
 case 9:
 YY_RULE_SETUP
-#line 36 "test.l"
+#line 36 "lexical_analyzer.l"
 {
     printf("TOKEN_VIOD\n");
 }
 	YY_BREAK
 case 10:
 YY_RULE_SETUP
-#line 39 "test.l"
+#line 39 "lexical_analyzer.l"
 {
     printf("TOKEN_MAIN\n");
 }
 	YY_BREAK
 case 11:
 YY_RULE_SETUP
-#line 42 "test.l"
+#line 42 "lexical_analyzer.l"
 {
     printf("TOKEN_CONTINUE\n");
 }
 	YY_BREAK
 case 12:
 YY_RULE_SETUP
-#line 45 "test.l"
+#line 45 "lexical_analyzer.l"
 {
     printf("TOKEN_BREAK\n");
 }
 	YY_BREAK
 case 13:
 YY_RULE_SETUP
-#line 49 "test.l"
+#line 49 "lexical_analyzer.l"
 {
     printf("TOKEN_DOT\n");
 }
 	YY_BREAK
 case 14:
 YY_RULE_SETUP
-#line 52 "test.l"
+#line 52 "lexical_analyzer.l"
 {
     printf("TOKEN_LEFTPAREN\n");
 }
 	YY_BREAK
 case 15:
 YY_RULE_SETUP
-#line 55 "test.l"
+#line 55 "lexical_analyzer.l"
 {
     printf("TOKEN_RIGHTPAREN\n");
 }
 	YY_BREAK
 case 16:
 YY_RULE_SETUP
-#line 58 "test.l"
+#line 58 "lexical_analyzer.l"
 {
     printf("TOKEN_LBRACE\n");
 }
 	YY_BREAK
 case 17:
 YY_RULE_SETUP
-#line 61 "test.l"
+#line 61 "lexical_analyzer.l"
 {
     printf("TOKEN_RBRACE\n");
 }
 	YY_BREAK
 case 18:
 YY_RULE_SETUP
-#line 64 "test.l"
+#line 64 "lexical_analyzer.l"
 {
     printf("TOKEN_LBRACK\n");
 }
 	YY_BREAK
 case 19:
 YY_RULE_SETUP
-#line 67 "test.l"
+#line 67 "lexical_analyzer.l"
 {
     printf("TOKEN_RBRACK\n");
 }
 	YY_BREAK
 case 20:
 YY_RULE_SETUP
-#line 70 "test.l"
+#line 70 "lexical_analyzer.l"
 {
     printf("TOKEN_?\n");
 }
 	YY_BREAK
 case 21:
 YY_RULE_SETUP
-#line 74 "test.l"
+#line 74 "lexical_analyzer.l"
 {
     printf("TOKEN_ASSIGN\n");
 }
 	YY_BREAK
 case 22:
 YY_RULE_SETUP
-#line 77 "test.l"
+#line 77 "lexical_analyzer.l"
 {
     printf("TOKEN_LESS\n");
 }
 	YY_BREAK
 case 23:
 YY_RULE_SETUP
-#line 80 "test.l"
+#line 80 "lexical_analyzer.l"
 {
     printf("TOKEN_?\n");
 }
 	YY_BREAK
 case 24:
 YY_RULE_SETUP
-#line 83 "test.l"
+#line 83 "lexical_analyzer.l"
 {
     printf("TOKEN_EQUAL\n");
 }
 	YY_BREAK
 case 25:
 YY_RULE_SETUP
-#line 86 "test.l"
+#line 86 "lexical_analyzer.l"
 {
     printf("TOKEN_NOTEQUAL\n");
 }
 	YY_BREAK
 case 26:
 YY_RULE_SETUP
-#line 89 "test.l"
+#line 89 "lexical_analyzer.l"
 {
     printf("TOKEN_MORE\n");
 }
 	YY_BREAK
 case 27:
 YY_RULE_SETUP
-#line 92 "test.l"
+#line 92 "lexical_analyzer.l"
 {
     printf("TOKEN_?\n");
 }
 	YY_BREAK
 case 28:
 YY_RULE_SETUP
-#line 95 "test.l"
+#line 95 "lexical_analyzer.l"
 {
     printf("TOKEN_?\n");
 }
 	YY_BREAK
 case 29:
 YY_RULE_SETUP
-#line 98 "test.l"
+#line 98 "lexical_analyzer.l"
 {
     printf("TOKEN_?\n");
 }
 	YY_BREAK
 case 30:
 YY_RULE_SETUP
-#line 101 "test.l"
+#line 101 "lexical_analyzer.l"
 {
     printf("TOKEN_OR\n");
 }
 	YY_BREAK
 case 31:
 YY_RULE_SETUP
-#line 104 "test.l"
+#line 104 "lexical_analyzer.l"
 {
     printf("TOKEN_AND\n");
 }
 	YY_BREAK
 case 32:
 YY_RULE_SETUP
-#line 107 "test.l"
+#line 107 "lexical_analyzer.l"
 {
     printf("TOKEN_?\n");
 }
 	YY_BREAK
 case 33:
 YY_RULE_SETUP
-#line 110 "test.l"
+#line 110 "lexical_analyzer.l"
 {
     printf("TOKEN_?\n");
 }
 	YY_BREAK
 case 34:
 YY_RULE_SETUP
-#line 113 "test.l"
+#line 113 "lexical_analyzer.l"
 {
     printf("TOKEN_ADD\n");
 }
 	YY_BREAK
 case 35:
 YY_RULE_SETUP
-#line 116 "test.l"
+#line 116 "lexical_analyzer.l"
 {
     printf("TOKEN_SUB\n");
 }
 	YY_BREAK
 case 36:
 YY_RULE_SETUP
-#line 119 "test.l"
+#line 119 "lexical_analyzer.l"
 {
     printf("TOKEN_MUL\n");
 }
 	YY_BREAK
 case 37:
 YY_RULE_SETUP
-#line 122 "test.l"
+#line 122 "lexical_analyzer.l"
 {
     printf("TOKEN_DIV\n");
 }
 	YY_BREAK
 case 38:
 YY_RULE_SETUP
-#line 125 "test.l"
+#line 125 "lexical_analyzer.l"
 {
     printf("TOKEN_SLCOMMENT\n");
 }
 	YY_BREAK
 case 39:
 YY_RULE_SETUP
-#line 128 "test.l"
+#line 128 "lexical_analyzer.l"
 {
     printf("TOKEN_MLCOMMENTSTART\n");
 }
 	YY_BREAK
 case 40:
 YY_RULE_SETUP
-#line 131 "test.l"
+#line 131 "lexical_analyzer.l"
 {
     printf("TOKEN_MLCOMMENTEND\n");
 }
 	YY_BREAK
 case 41:
 YY_RULE_SETUP
-#line 135 "test.l"
+#line 135 "lexical_analyzer.l"
 {
     printf("TOKEN_IDENTIFIER\n");
 }
 	YY_BREAK
 case 42:
 YY_RULE_SETUP
-#line 138 "test.l"
+#line 138 "lexical_analyzer.l"
 {
     printf("TOKEN_INT_CONST\n");
 }
@@ -1082,14 +1082,14 @@ YY_RULE_SETUP
 case 43:
 /* rule 43 can match eol */
 YY_RULE_SETUP
-#line 141 "test.l"
+#line 141 "lexical_analyzer.l"
 {
     printf("TOKEN_CHAR_CONST\n");
 }
 	YY_BREAK
 case 44:
 YY_RULE_SETUP
-#line 147 "test.l"
+#line 147 "lexical_analyzer.l"
 ECHO;
 	YY_BREAK
 #line 1096 "lex.yy.c"
@@ -2097,12 +2097,12 @@ void yyfree (void * ptr )
 
 #define YYTABLES_NAME "yytables"
 
-#line 147 "test.l"
+#line 147 "lexical_analyzer.l"
 
 
 /* Code Section */
 int main (){
-    FILE* f = fopen("testcase.txt", "r"); 
+    FILE* f = fopen("test_case1.txt", "r"); 
     yyin = f;
    
 
