@@ -1,0 +1,5 @@
+# Implicit Error that our Language doesn't support
+int main() {
+    char @hello;
+    @hello = 'c';
+}

@@ -1,1 +1,1 @@
-# Lexical_Analyzer_In_Flex
+# lexical-analyzer

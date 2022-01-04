@@ -1,0 +1,15 @@
+1.2.345
+1E10_7
+12abcd
+#"ab"
+#!!abc
+"a
+"
+"ab cd"
+"\"
+""
+"abcd
+"abcd\
+ijk"
+efgh
+def

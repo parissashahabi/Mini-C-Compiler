@@ -1,0 +1,16 @@
+int main()
+{
+    int var = -29.
+    if(var < 10)
+    {
+        var = var * 10.
+        char cfg = "jvj".
+        # SINGLE LINE COMMENT
+        #! THIS IS !
+         BLOCK ##!
+            COMMENT 
+            !#
+    } elseif{
+        continue.
+    }
+}
