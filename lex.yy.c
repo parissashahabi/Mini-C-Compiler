@@ -2217,7 +2217,7 @@ void yyfree (void * ptr )
 
 /* Code Section */
 int main (){
-    FILE* input = fopen("./Test Cases/test1.txt", "r"); 
+    FILE* input = fopen("./Test Cases/test7.txt", "r"); 
     yyin = input;
     output = fopen("Phase1_Tokens.txt", "w");
     fprintf(output,  "The resulted tokens are:\n");
