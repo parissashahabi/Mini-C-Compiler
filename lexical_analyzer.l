@@ -52,10 +52,6 @@ SINGLE_LINE_COMMENT "#"[^!].*
 "void" {
     return VOID ;
 }
-"main" {
-    printf("kir7: %s", yytext);
-    return MAIN;
-}
 "continue" {
     return CONTINUE;
 }

@@ -4,6 +4,7 @@
     int yylex();
     #include <stdio.h>
     FILE *output;
+    int flag=0;
 %}
 
 %token IDENTIFIER INT_CONST CHAR_CONST FOR WHILE IF ELSEIF ELSE
@@ -260,10 +261,7 @@ constant :
 
 extern FILE *yyin;
 extern int yylineno;
-
-void yyerror(char *s){
-    fprintf (output, "Error happend %s %d",s, yylineno);
-}
+extern char *yytext;
 
 /* Code Section */
 int main (){
@@ -275,4 +273,9 @@ int main (){
     fclose(output);
     fclose(input);
     return 0;
+}
+
+void yyerror(char *s){
+
+    fprintf (output, "Error happend %s %d %s",s, yylineno, yytext);
 }

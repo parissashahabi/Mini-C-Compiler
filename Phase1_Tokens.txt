@@ -1,2 +1,2 @@
 results are:
-Error happend syntax error 1
+Error happend syntax error 5 =

@@ -72,8 +72,9 @@
     int yylex();
     #include <stdio.h>
     FILE *output;
+    int flag=0;
 
-#line 77 "parser.tab.c"
+#line 78 "parser.tab.c"
 
 # ifndef YY_CAST
 #  ifdef __cplusplus
@@ -552,18 +553,18 @@ static const yytype_int8 yytranslate[] =
   /* YYRLINE[YYN] -- Source line where rule number YYN was defined.  */
 static const yytype_int16 yyrline[] =
 {
-       0,    35,    35,    38,    41,    42,    45,    46,    49,    52,
-      55,    56,    59,    60,    63,    64,    67,    68,    71,    72,
-      73,    76,    77,    78,    81,    84,    87,    90,    91,    94,
-      97,   100,   101,   104,   107,   108,   111,   111,   112,   112,
-     113,   113,   114,   117,   120,   121,   124,   125,   128,   132,
-     133,   136,   137,   140,   143,   144,   147,   150,   153,   156,
-     159,   160,   163,   164,   167,   168,   169,   170,   171,   172,
-     173,   176,   179,   180,   183,   186,   187,   190,   191,   194,
-     197,   198,   201,   202,   203,   204,   205,   206,   209,   210,
-     213,   214,   217,   218,   221,   222,   225,   226,   229,   230,
-     233,   234,   237,   238,   239,   242,   245,   246,   249,   252,
-     253,   256,   257
+       0,    36,    36,    39,    42,    43,    46,    47,    50,    53,
+      56,    57,    60,    61,    64,    65,    68,    69,    72,    73,
+      74,    77,    78,    79,    82,    85,    88,    91,    92,    95,
+      98,   101,   102,   105,   108,   109,   112,   112,   113,   113,
+     114,   114,   115,   118,   121,   122,   125,   126,   129,   133,
+     134,   137,   138,   141,   144,   145,   148,   151,   154,   157,
+     160,   161,   164,   165,   168,   169,   170,   171,   172,   173,
+     174,   177,   180,   181,   184,   187,   188,   191,   192,   195,
+     198,   199,   202,   203,   204,   205,   206,   207,   210,   211,
+     214,   215,   218,   219,   222,   223,   226,   227,   230,   231,
+     234,   235,   238,   239,   240,   243,   246,   247,   250,   253,
+     254,   257,   258
 };
 #endif
 
@@ -1494,7 +1495,7 @@ yyreduce:
   switch (yyn)
     {
 
-#line 1498 "parser.tab.c"
+#line 1499 "parser.tab.c"
 
       default: break;
     }
@@ -1726,15 +1727,12 @@ yyreturn:
 #endif
   return yyresult;
 }
-#line 259 "parser.y"
+#line 260 "parser.y"
 
 
 extern FILE *yyin;
 extern int yylineno;
-
-void yyerror(char *s){
-    fprintf (output, "Error happend %s %d",s, yylineno);
-}
+extern char *yytext;
 
 /* Code Section */
 int main (){
@@ -1746,4 +1744,9 @@ int main (){
     fclose(output);
     fclose(input);
     return 0;
+}
+
+void yyerror(char *s){
+
+    fprintf (output, "Error happend %s %d %s",s, yylineno, yytext);
 }
