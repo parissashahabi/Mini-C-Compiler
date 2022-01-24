@@ -2,6 +2,7 @@
 
 /* Definition Section */
 %{
+    #include <parser.tab.h>
     #include <stdio.h>
     FILE *output;
     int line_count = 1;
@@ -24,155 +25,154 @@ SINGLE_LINE_COMMENT "#"[^!].*
 {SINGLE_LINE_COMMENT}  {} 
 
 "int" {
-    fprintf(output, "TOKEN_INT\n");
+    return(INT);
 }
 "char" {
-    fprintf(output, "TOKEN_CHAR\n");
+    return(CHAR);
 }
 "if" {
-    fprintf(output, "TOKEN_IF\n");
+    return(IF);
 }
 "else" {
-    fprintf(output, "TOKEN_ELSE\n");
+    return(ELSE);
 }
 "elseif" {
-    fprintf(output, "TOKEN_ELSEIF\n");
+    return(ELSEIF);
 }
 "while" {
-    fprintf(output, "TOKEN_WHILE\n");
+    return(WHILE);
 }
 "for" {
-    fprintf(output, "TOKEN_FOR\n");
+    return(FOR);
 }
 "return" {
-    fprintf(output, "TOKEN_RETURN\n");
+    return(RETURN);
 }
 "void" {
-    fprintf(output, "TOKEN_VOID\n");
+    return(VOID);
 }
 "main" {
-    fprintf(output, "TOKEN_MAIN\n");
+    return(MAIN);
 }
 "continue" {
-    fprintf(output, "TOKEN_CONTINUE\n");
+    return(CONTINUE);
 }
 "break" {
-    fprintf(output, "TOKEN_BREAK\n");
+    return(BREAK);
 }
 
 "." {
-    fprintf(output, "TOKEN_DOT\n");
-}
+    return('.');
 "(" {
-    fprintf(output, "TOKEN_LEFTPAREN\n");
+    return('(');
 }
 ")" {
-    fprintf(output, "TOKEN_RIGHTPAREN\n");
+    return(')');
 }
 "{" {
-    fprintf(output, "TOKEN_LBRACE\n");
+    return('{');
 }
 "}" {
-    fprintf(output, "TOKEN_RBRACE\n");
+    return('}');
 }
 "[" {
-    fprintf(output, "TOKEN_LBRACK\n");
+    return('[');
 }
 "]" {
-    fprintf(output, "TOKEN_RBRACK\n");
+    return(']');
 }
 "," {
-    fprintf(output, "TOKEN_COMMA\n");
+    return(',');
 }
 
 "=" {
-    fprintf(output, "TOKEN_ASSIGN\n");
+    return(ASSIGN);
 }
 "<" {
-    fprintf(output, "TOKEN_LESS\n");
+    return(LESS);
 }
 "<=" {
-    fprintf(output, "TOKEN_LESSOREQUAL\n");
+    return(LESSOREQUAL);
 }
 "==" {
-    fprintf(output, "TOKEN_EQUAL\n");
+    return(EQUAL);
 }
 "!=" {
-    fprintf(output, "TOKEN_NOTEQUAL\n");
+    return(NOTEQUAL);
 }
 ">" {
-    fprintf(output, "TOKEN_GREATER\n");
+    return(GREATER);
 }
 ">=" {
-    fprintf(output, "TOKEN_GREATEROREQUAL\n");
+    return(GREATEROREQUAL);
 }
 "|" {
-    fprintf(output, "TOKEN_OR\n");
+    return(OR);
 }
 "&" {
-    fprintf(output, "TOKEN_AND\n");
+    return(AND);
 }
 "^" {
-    fprintf(output, "TOKEN_XOR\n");
+    return(XOR);
 }
 "||" {
-    fprintf(output, "TOKEN_OR_OP\n");
+    return(OR_OP);
 }
 "&&" {
-    fprintf(output, "TOKEN_AND_OP\n");
+    return(AND_OP);
 }
 
 "!" {
-    fprintf(output, "TOKEN_NOT\n");
+    return(NOT);
 }
 "+" {
-    fprintf(output, "TOKEN_ADD\n");
+    return(ADD);
 }
 "-" {
-    fprintf(output, "TOKEN_SUB\n");
+    return(SUB);
 }
 "*" {
-    fprintf(output, "TOKEN_MUL\n");
+    return(MUL);
 }
 "/" {
-    fprintf(output, "TOKEN_DIV\n");
+    return(DIV);
 }
 "++" {
-    fprintf(output, "TOKEN_INC_OP\n");
+    return(INC_OP);
 }
 "--" {
-    fprintf(output, "TOKEN_DEC_OP\n");
+    return(DEC_OP);
 }
 "+=" {
-    fprintf(output, "TOKEN_ADD_ASSIGN\n");
+    return(ADD_ASSIGN);
 }
 "-=" {
-    fprintf(output, "TOKEN_SUB_ASSIGN\n");
+    return(SUB_ASSIGN);
 }
 "*=" {
-    fprintf(output, "TOKEN_MUL_ASSIGN\n");
+    return(MUL_ASSIGN);
 }
 "/=" {
-    fprintf(output, "TOKEN_DIV_ASSIGN\n");
+    return(DIV_ASSIGN);
 }
 "&=" {
-    fprintf(output, "TOKEN_AND_ASSIGN\n");
+    return(AND_ASSIGN);
 }
 "|=" {
-    fprintf(output, "TOKEN_OR_ASSIGN\n");
+    return(OR_ASSIGN);
 }
 "^=" {
-    fprintf(output, "TOKEN_XOR_ASSIGN\n");
+    return(XOR_ASSIGN);
 }
 
 \"([^"\\\r\n]|[\\]{ANYTHING})*\" {
-    fprintf(output, "TOKEN_CHAR_CONST\n");
+    return(CHAR_CONST);
 }
 [-|+]?([1-9][0-9]*|0) {
-    fprintf(output, "TOKEN_INT_CONST\n");
+    return(INT_CONST);
 }
 [a-zA-Z_][a-zA-Z0-9_]* {
-    fprintf(output, "TOKEN_IDENTIFIER\n");
+    return(IDENTIFIER);
 }
 [0-9]([a-zA-Z_]|[0-9])* {
     fprintf(output, "Error: Invalid numeric constant or identifier.\n");
