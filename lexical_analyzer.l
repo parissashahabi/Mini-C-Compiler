@@ -2,9 +2,9 @@
 
 /* Definition Section */
 %{
-    #include <parser.tab.h>
+    #include "parser.tab.h"
     #include <stdio.h>
-    FILE *output;
+    /* FILE *output; */
     int line_count = 1;
 %}
 
@@ -18,193 +18,188 @@ SINGLE_LINE_COMMENT "#"[^!].*
 
 /* Rule Section */
 %%
-{NEWLINE} {line_count++;}
+{NEWLINE} {yylineno++;}
 [ \f\v\r\t]+ {}
 
 {BLOCK_COMMENT} | 
-{SINGLE_LINE_COMMENT}  {} 
+{SINGLE_LINE_COMMENT}  {printf("kir2: %s", yytext);} 
 
 "int" {
-    return(INT);
+    printf("kir6: %s", yytext);
+    return INT;
 }
 "char" {
-    return(CHAR);
+    return CHAR;
 }
 "if" {
-    return(IF);
+    return IF;
 }
 "else" {
-    return(ELSE);
+    return ELSE;
 }
 "elseif" {
-    return(ELSEIF);
+    return ELSEIF;
 }
 "while" {
-    return(WHILE);
+    return WHILE;
 }
 "for" {
-    return(FOR);
+    return FOR;
 }
 "return" {
-    return(RETURN);
+    return RETURN ;
 }
 "void" {
-    return(VOID);
+    return VOID ;
 }
 "main" {
-    return(MAIN);
+    printf("kir7: %s", yytext);
+    return MAIN;
 }
 "continue" {
-    return(CONTINUE);
+    return CONTINUE;
 }
 "break" {
-    return(BREAK);
+    return BREAK;
 }
 
 "." {
-    return('.');
+    return DOT;
 }
 "(" {
-    return('(');
+    printf("kir5: %s", yytext);
+    return LEFTPAREN;
 }
 ")" {
-    return(')');
+    printf("kir4: %s", yytext);
+    return RIGHTPAREN;
 }
 "{" {
-    return('{');
+    printf("kir3: %s", yytext);
+    return LEFTBRACE;
 }
 "}" {
-    return('}');
+    printf("kir: %s", yytext);
+    return RIGHTBRACE;
 }
 "[" {
-    return('[');
+    return LEFTBRACK;
 }
 "]" {
-    return(']');
+    return RIGHTBEACK;
 }
 "," {
-    return(',');
+    return COMMA;
 }
 
 "=" {
-    return(ASSIGN);
+    return ASSIGN;
 }
 "<" {
-    return(LESS);
+    return LESS;
 }
 "<=" {
-    return(LESSOREQUAL);
+    return LESSOREQUAL;
 }
 "==" {
-    return(EQUAL);
+    return EQUAL;
 }
 "!=" {
-    return(NOTEQUAL);
+    return NOTEQUAL;
 }
 ">" {
-    return(GREATER);
+    return GREATER;
 }
 ">=" {
-    return(GREATEROREQUAL);
+    return GREATEROREQUAL;
 }
 "|" {
-    return(OR);
+    return OR;
 }
 "&" {
-    return(AND);
+    return AND;
 }
 "^" {
-    return(XOR);
+    return XOR;
 }
 "||" {
-    return(OR_OP);
+    return OR_OP;
 }
 "&&" {
-    return(AND_OP);
+    return AND_OP;
 }
 
 "!" {
-    return(NOT);
+    return NOT;
 }
 "+" {
-    return(ADD);
+    return ADD;
 }
 "-" {
-    return(SUB);
+    return SUB;
 }
 "*" {
-    return(MUL);
+    return MUL;
 }
 "/" {
-    return(DIV);
+    return DIV;
 }
 "++" {
-    return(INC_OP);
+    return INC_OP;
 }
 "--" {
-    return(DEC_OP);
+    return DEC_OP;
 }
 "+=" {
-    return(ADD_ASSIGN);
+    return ADD_ASSIGN;
 }
 "-=" {
-    return(SUB_ASSIGN);
+    return SUB_ASSIGN;
 }
 "*=" {
-    return(MUL_ASSIGN);
+    return MUL_ASSIGN;
 }
 "/=" {
-    return(DIV_ASSIGN);
+    return DIV_ASSIGN;
 }
 "&=" {
-    return(AND_ASSIGN);
+    return AND_ASSIGN;
 }
 "|=" {
-    return(OR_ASSIGN);
+    return OR_ASSIGN;
 }
 "^=" {
-    return(XOR_ASSIGN);
+    return XOR_ASSIGN;
 }
 
 \"([^"\\\r\n]|[\\]{ANYTHING})*\" {
-    return(CHAR_CONST);
+    return CHAR_CONST;
 }
 [-|+]?([1-9][0-9]*|0) {
-    return(INT_CONST);
+    return INT_CONST;
 }
 [a-zA-Z_][a-zA-Z0-9_]* {
-    return(IDENTIFIER);
+    return IDENTIFIER;
 }
 [0-9]([a-zA-Z_]|[0-9])* {
-    fprintf(output, "Error: Invalid numeric constant or identifier.\n");
+    printf("Error: Invalid numeric constant or identifier.\n");
 }
 
 {ANYTHING} {
 	if(yytext[0]=='#')
 	{ 
-    	fprintf(output,"Error: Unmached comment at line no. %d\n",line_count);
+    	printf("Error: Unmached comment at line no. %d\n",line_count);
     }
     else if(yytext[0]=='"')
     {
-    	fprintf(output,"Error: Incomplete character at line no. %d\n",line_count);
+    	printf("Error: Incomplete character at line no. %d\n",line_count);
     }
     else
     {
-    	fprintf(output,"Error: Unrecognized character at lone no. %d.\n", line_count);
+    	printf("Error: Unrecognized character at lone no. %d.\n", line_count);
     }
     return 0;
 }
 
 %%
 
-/* Code Section */
-int main (){
-    FILE* input = fopen("./Test Cases/test7.txt", "r"); 
-    yyin = input;
-    output = fopen("Phase1_Tokens.txt", "w");
-    fprintf(output,  "The resulted tokens are:\n");
-    yylex();
-    fclose(output);
-    fclose(input);
-    return 0;
-}

@@ -1,8 +1,2 @@
-The resulted tokens are:
-TOKEN_INT
-TOKEN_MAIN
-TOKEN_LEFTPAREN
-TOKEN_RIGHTPAREN
-TOKEN_LBRACE
-TOKEN_CHAR
-Error: Unrecognized character at lone no. 3.
+results are:
+Error happend syntax error 1

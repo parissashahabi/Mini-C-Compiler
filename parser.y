@@ -1,11 +1,15 @@
 
 %{
+    void yyerror(char* s);
+    int yylex();
     #include <stdio.h>
+    FILE *output;
 %}
 
 %token IDENTIFIER INT_CONST CHAR_CONST FOR WHILE IF ELSEIF ELSE
-%token VOID INT CHAR BREAK
+%token VOID INT CHAR BREAK CONTINUE
 %token MAIN RETURN
+%token DOT COMMA RIGHTBEACK LEFTBRACK RIGHTBRACE LEFTBRACE RIGHTPAREN LEFTPAREN
 
 %right XOR_ASSIGN OR_ASSIGN
 %right AND_ASSIGN
@@ -42,26 +46,26 @@ declaration :
             | function_declaration;
 
 variable_declaration :
-            type_specifier variable_declaration_list ​ '.';
+            type_specifier variable_declaration_list DOT;
 
 variable_declaration_list :
             variable_declaration_identifier V;
 
 V :
-            ','​ variable_declaration_list
+            COMMA variable_declaration_list
             | ;
 
 variable_declaration_identifier :
-            identifier identifier_array_type
+            IDENTIFIER identifier_array_type
             | expression;
 
 identifier_array_type :
-            '['​ initilization_params
+            LEFTBRACK initilization_params
             | ;
 
 initilization_params :
-            integer_constant ​ ']'​ initilization
-            | ​ ']'​ string_initilization;
+            INT_CONST RIGHTBEACK initilization
+            | RIGHTBEACK string_initilization;
 
 initilization :
             string_initilization
@@ -77,10 +81,10 @@ function_declaration :
             function_declaration_type function_declaration_param_statement;
 
 function_declaration_type :
-            type_specifier identifier ​ '(';
+            type_specifier IDENTIFIER LEFTPAREN;
 
 function_declaration_param_statement :
-            params ​ ')'​ statement;
+            params RIGHTPAREN statement;
 
 params :
             parameters_list 
@@ -93,14 +97,14 @@ parameters_identifier_list :
             param_identifier parameters_identifier_list_breakup;
 
 parameters_identifier_list_breakup :
-            ','​ parameters_list
+            COMMA parameters_list
             | ;
 
 param_identifier : 
-            identifier param_identifier_breakup;
+            IDENTIFIER param_identifier_breakup;
 
-param_identifier_breakup : ​ 
-            '['​ ​ ']'
+param_identifier_breakup :
+            LEFTBRACK RIGHTBEACK
             | ;
 
 statement :
@@ -110,18 +114,18 @@ statement :
             | variable_declaration;
 
 compound_statement : 
-            '{'​ statment_list ​ '}'​ ;
+            LEFTBRACE statment_list RIGHTBRACE ;
 
 statment_list : 
             statement statment_list
             | ;
 
 expression_statment : 
-            expression ​ '.'
-            | ​ '.'​ ;
+            expression DOT
+            | DOT ;
 
 conditional_statements : 
-            IF ​ '('​ simple_expression ​ ')'​ statement
+            IF LEFTPAREN simple_expression RIGHTPAREN statement
             conditional_statements_breakup;
 
 conditional_statements_breakup : 
@@ -129,63 +133,61 @@ conditional_statements_breakup :
             | ;
 
 iterative_statements : 
-            WHILE ​ '('​ simple_expression ​ ')'​ statement
-            | FOR ​ '('​ expression ​ ','​ simple_expression ​ ','​ expression ​ ')'
-            | DO statement WHILE ​ '('​ simple_expression ​ ')'​ ​ '.'​ ;
+            WHILE LEFTPAREN simple_expression RIGHTPAREN statement
+            | FOR LEFTPAREN expression COMMA simple_expression COMMA expression RIGHTPAREN ;
 
 return_statement : 
             RETURN return_statement_breakup;
 
 return_statement_breakup : 
-            '.'
-            | expression ​ '.'​ ;
+            DOT
+            | expression DOT ;
 
 break_statement : 
-            BREAK ​ '.'​ ;
+            BREAK DOT ;
 
 string_initilization : 
-            assignment_operator string_constant;
+            ASSIGN CHAR_CONST;
 
 array_initialization : 
-            assignment_operator ​ '{'​ array_int_declarations ​ '}'​ ;
+            ASSIGN LEFTBRACE array_int_declarations RIGHTBRACE ;
 
 array_int_declarations : 
-            integer_constant array_int_declarations_breakup;
+            INT_CONST array_int_declarations_breakup;
 
 array_int_declarations_breakup : 
-            ','​ array_int_declarations
+            COMMA array_int_declarations
             | ;
 
 expression : 
-            mutable​ expression_breakup
+            mutable expression_breakup
             | simple_expression ;
 
 expression_breakup : 
-            assignment_operator expression
-            | addition_assignment_operator expression
-            | subtraction_assignment_operator expression
-            | multiplication_assignment_operator expression
-            | division_assignment_operator expression
-            | modulo_assignment_operator expression
-            | increment_operator
-            | decrement_operator ;
+            ASSIGN expression
+            | ADD_ASSIGN expression
+            | SUB_ASSIGN expression
+            | MUL_ASSIGN expression
+            | DIV_ASSIGN expression
+            | INC_OP
+            | DEC_OP ;
 
 simple_expression : 
             and_expression simple_expression_breakup;
 
 simple_expression_breakup : 
-            OR_operator and_expression simple_expression_breakup 
+            OR_OP and_expression simple_expression_breakup 
             | ;
 
 and_expression : 
             unary_relation_expression and_expression_breakup;
 
 and_expression_breakup : 
-            AND_operator unary_relation_expression and_expression_breakup
+            AND_OP unary_relation_expression and_expression_breakup
             | ;
 
 unary_relation_expression : 
-            exclamation_operator unary_relation_expression
+            NOT unary_relation_expression
             | regular_expression ;
 
 regular_expression : 
@@ -196,49 +198,48 @@ regular_expression_breakup :
             | ;
 
 relational_operators : 
-            greaterthan_assignment_operator 
-            | lessthan_assignment_operator 
-            | greaterthan_operator
-            | lessthan_operator 
-            | equality_operator 
-            | inequality_operator;
+            GREATEROREQUAL
+            | LESSOREQUAL 
+            | GREATER
+            | LESS
+            | EQUAL
+            | NOTEQUAL;
 
 sum_expression : 
             sum_expression sum_operators term
             | term ;
 
 sum_operators : 
-            add_operator
-            | subtract_operator ;
+            ADD
+            | SUB ;
 
 term : 
             term MULOP factor
             | factor ;
 
 MULOP : 
-            multiplication_operator 
-            | division_operator 
-            |modulo_operator ;
+            MUL
+            | DIV ;
 
 factor : 
             immutable 
-            | ​ mutable​ ;
+            | mutable ;
 
 mutable : 
-            identifier
-            | mutable​ mutable_breakup;
+            IDENTIFIER
+            | mutable mutable_breakup;
 
 mutable_breakup : 
-            '['​ expression ​ ']'
-            | '.'​ identifier;
+            LEFTBRACK expression RIGHTBEACK
+            | DOT IDENTIFIER;
 
 immutable : 
-            '('​ expression ​ ')'
+            LEFTPAREN expression RIGHTPAREN
             | call 
             | constant;
 
 call : 
-            identifier ​ '('​ arguments ​ ')'​ ;
+            IDENTIFIER LEFTPAREN arguments RIGHTPAREN ;
 
 arguments : 
             arguments_list 
@@ -248,20 +249,30 @@ arguments_list :
             expression A;
 
 A : 
-            ','​ expression A
+            COMMA expression A
             | ;
 
 constant :
-            integer_constant
-            | string_constant
-            | character_constant;
+            INT_CONST
+            | CHAR_CONST;
 
 %%
 
+extern FILE *yyin;
+extern int yylineno;
+
 void yyerror(char *s){
-    printf ("Error happend %s",s)
+    fprintf (output, "Error happend %s %d",s, yylineno);
 }
 
-int main(void){
+/* Code Section */
+int main (){
+    FILE* input = fopen("./Test Cases/test2.txt", "r"); 
+    yyin = input;
+    output = fopen("Phase1_Tokens.txt", "w");
+    fprintf(output,  "results are:\n");
     yyparse();
+    fclose(output);
+    fclose(input);
+    return 0;
 }

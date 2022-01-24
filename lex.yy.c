@@ -530,12 +530,13 @@ char *yytext;
 #line 1 "lexical_analyzer.l"
 /* Definition Section */
 #line 5 "lexical_analyzer.l"
+    #include "parser.tab.h"
     #include <stdio.h>
-    FILE *output;
+    /* FILE *output; */
     int line_count = 1;
-#line 537 "lex.yy.c"
+#line 538 "lex.yy.c"
 /* Rule Section */
-#line 539 "lex.yy.c"
+#line 540 "lex.yy.c"
 
 #define INITIAL 0
 
@@ -752,9 +753,9 @@ YY_DECL
 		}
 
 	{
-#line 19 "lexical_analyzer.l"
+#line 20 "lexical_analyzer.l"
 
-#line 758 "lex.yy.c"
+#line 759 "lex.yy.c"
 
 	while ( /*CONSTCOND*/1 )		/* loops until end-of-file is reached */
 		{
@@ -814,400 +815,406 @@ do_action:	/* This label is used only to access EOF actions. */
 case 1:
 /* rule 1 can match eol */
 YY_RULE_SETUP
-#line 20 "lexical_analyzer.l"
-{line_count++;}
+#line 21 "lexical_analyzer.l"
+{yylineno++;}
 	YY_BREAK
 case 2:
 YY_RULE_SETUP
-#line 21 "lexical_analyzer.l"
+#line 22 "lexical_analyzer.l"
 {}
 	YY_BREAK
 case 3:
 /* rule 3 can match eol */
-#line 24 "lexical_analyzer.l"
+#line 25 "lexical_analyzer.l"
 case 4:
 /* rule 4 can match eol */
 YY_RULE_SETUP
-#line 24 "lexical_analyzer.l"
-{} 
+#line 25 "lexical_analyzer.l"
+{printf("kir2: %s", yytext);} 
 	YY_BREAK
 case 5:
 YY_RULE_SETUP
-#line 26 "lexical_analyzer.l"
+#line 27 "lexical_analyzer.l"
 {
-    fprintf(output, "TOKEN_INT\n");
+    printf("kir6: %s", yytext);
+    return (INT);
 }
 	YY_BREAK
 case 6:
 YY_RULE_SETUP
-#line 29 "lexical_analyzer.l"
+#line 31 "lexical_analyzer.l"
 {
-    fprintf(output, "TOKEN_CHAR\n");
+    return CHAR;
 }
 	YY_BREAK
 case 7:
 YY_RULE_SETUP
-#line 32 "lexical_analyzer.l"
+#line 34 "lexical_analyzer.l"
 {
-    fprintf(output, "TOKEN_IF\n");
+    return IF;
 }
 	YY_BREAK
 case 8:
 YY_RULE_SETUP
-#line 35 "lexical_analyzer.l"
+#line 37 "lexical_analyzer.l"
 {
-    fprintf(output, "TOKEN_ELSE\n");
+    return ELSE;
 }
 	YY_BREAK
 case 9:
 YY_RULE_SETUP
-#line 38 "lexical_analyzer.l"
+#line 40 "lexical_analyzer.l"
 {
-    fprintf(output, "TOKEN_ELSEIF\n");
+    return ELSEIF;
 }
 	YY_BREAK
 case 10:
 YY_RULE_SETUP
-#line 41 "lexical_analyzer.l"
+#line 43 "lexical_analyzer.l"
 {
-    fprintf(output, "TOKEN_WHILE\n");
+    return WHILE;
 }
 	YY_BREAK
 case 11:
 YY_RULE_SETUP
-#line 44 "lexical_analyzer.l"
+#line 46 "lexical_analyzer.l"
 {
-    fprintf(output, "TOKEN_FOR\n");
+    return FOR;
 }
 	YY_BREAK
 case 12:
 YY_RULE_SETUP
-#line 47 "lexical_analyzer.l"
+#line 49 "lexical_analyzer.l"
 {
-    fprintf(output, "TOKEN_RETURN\n");
+    return RETURN ;
 }
 	YY_BREAK
 case 13:
 YY_RULE_SETUP
-#line 50 "lexical_analyzer.l"
+#line 52 "lexical_analyzer.l"
 {
-    fprintf(output, "TOKEN_VOID\n");
+    return VOID ;
 }
 	YY_BREAK
 case 14:
 YY_RULE_SETUP
-#line 53 "lexical_analyzer.l"
+#line 55 "lexical_analyzer.l"
 {
-    fprintf(output, "TOKEN_MAIN\n");
+    printf("kir7: %s", yytext);
+    return MAIN;
 }
 	YY_BREAK
 case 15:
 YY_RULE_SETUP
-#line 56 "lexical_analyzer.l"
+#line 59 "lexical_analyzer.l"
 {
-    fprintf(output, "TOKEN_CONTINUE\n");
+    return CONTINUE;
 }
 	YY_BREAK
 case 16:
 YY_RULE_SETUP
-#line 59 "lexical_analyzer.l"
+#line 62 "lexical_analyzer.l"
 {
-    fprintf(output, "TOKEN_BREAK\n");
+    return BREAK;
 }
 	YY_BREAK
 case 17:
 YY_RULE_SETUP
-#line 63 "lexical_analyzer.l"
+#line 66 "lexical_analyzer.l"
 {
-    fprintf(output, "TOKEN_DOT\n");
+    return DOT;
 }
 	YY_BREAK
 case 18:
 YY_RULE_SETUP
-#line 66 "lexical_analyzer.l"
+#line 69 "lexical_analyzer.l"
 {
-    fprintf(output, "TOKEN_LEFTPAREN\n");
+    printf("kir5: %s", yytext);
+    return LEFTPAREN;
 }
 	YY_BREAK
 case 19:
 YY_RULE_SETUP
-#line 69 "lexical_analyzer.l"
+#line 73 "lexical_analyzer.l"
 {
-    fprintf(output, "TOKEN_RIGHTPAREN\n");
+    printf("kir4: %s", yytext);
+    return RIGHTPAREN;
 }
 	YY_BREAK
 case 20:
 YY_RULE_SETUP
-#line 72 "lexical_analyzer.l"
+#line 77 "lexical_analyzer.l"
 {
-    fprintf(output, "TOKEN_LBRACE\n");
+    printf("kir3: %s", yytext);
+    return LEFTBRACE;
 }
 	YY_BREAK
 case 21:
 YY_RULE_SETUP
-#line 75 "lexical_analyzer.l"
+#line 81 "lexical_analyzer.l"
 {
-    fprintf(output, "TOKEN_RBRACE\n");
+    printf("kir: %s", yytext);
+    return RIGHTBRACE;
 }
 	YY_BREAK
 case 22:
 YY_RULE_SETUP
-#line 78 "lexical_analyzer.l"
+#line 85 "lexical_analyzer.l"
 {
-    fprintf(output, "TOKEN_LBRACK\n");
+    return LEFTBRACK;
 }
 	YY_BREAK
 case 23:
 YY_RULE_SETUP
-#line 81 "lexical_analyzer.l"
+#line 88 "lexical_analyzer.l"
 {
-    fprintf(output, "TOKEN_RBRACK\n");
+    return RIGHTBEACK;
 }
 	YY_BREAK
 case 24:
 YY_RULE_SETUP
-#line 84 "lexical_analyzer.l"
+#line 91 "lexical_analyzer.l"
 {
-    fprintf(output, "TOKEN_COMMA\n");
+    return COMMA;
 }
 	YY_BREAK
 case 25:
 YY_RULE_SETUP
-#line 88 "lexical_analyzer.l"
+#line 95 "lexical_analyzer.l"
 {
-    fprintf(output, "TOKEN_ASSIGN\n");
+    return ASSIGN;
 }
 	YY_BREAK
 case 26:
 YY_RULE_SETUP
-#line 91 "lexical_analyzer.l"
+#line 98 "lexical_analyzer.l"
 {
-    fprintf(output, "TOKEN_LESS\n");
+    return LESS;
 }
 	YY_BREAK
 case 27:
 YY_RULE_SETUP
-#line 94 "lexical_analyzer.l"
+#line 101 "lexical_analyzer.l"
 {
-    fprintf(output, "TOKEN_LESSOREQUAL\n");
+    return LESSOREQUAL;
 }
 	YY_BREAK
 case 28:
 YY_RULE_SETUP
-#line 97 "lexical_analyzer.l"
+#line 104 "lexical_analyzer.l"
 {
-    fprintf(output, "TOKEN_EQUAL\n");
+    return EQUAL;
 }
 	YY_BREAK
 case 29:
 YY_RULE_SETUP
-#line 100 "lexical_analyzer.l"
+#line 107 "lexical_analyzer.l"
 {
-    fprintf(output, "TOKEN_NOTEQUAL\n");
+    return NOTEQUAL;
 }
 	YY_BREAK
 case 30:
 YY_RULE_SETUP
-#line 103 "lexical_analyzer.l"
+#line 110 "lexical_analyzer.l"
 {
-    fprintf(output, "TOKEN_GREATER\n");
+    return GREATER;
 }
 	YY_BREAK
 case 31:
 YY_RULE_SETUP
-#line 106 "lexical_analyzer.l"
+#line 113 "lexical_analyzer.l"
 {
-    fprintf(output, "TOKEN_GREATEROREQUAL\n");
+    return GREATEROREQUAL;
 }
 	YY_BREAK
 case 32:
 YY_RULE_SETUP
-#line 109 "lexical_analyzer.l"
+#line 116 "lexical_analyzer.l"
 {
-    fprintf(output, "TOKEN_OR\n");
+    return OR;
 }
 	YY_BREAK
 case 33:
 YY_RULE_SETUP
-#line 112 "lexical_analyzer.l"
+#line 119 "lexical_analyzer.l"
 {
-    fprintf(output, "TOKEN_AND\n");
+    return AND;
 }
 	YY_BREAK
 case 34:
 YY_RULE_SETUP
-#line 115 "lexical_analyzer.l"
+#line 122 "lexical_analyzer.l"
 {
-    fprintf(output, "TOKEN_XOR\n");
+    return XOR;
 }
 	YY_BREAK
 case 35:
 YY_RULE_SETUP
-#line 118 "lexical_analyzer.l"
+#line 125 "lexical_analyzer.l"
 {
-    fprintf(output, "TOKEN_OR_OP\n");
+    return OR_OP;
 }
 	YY_BREAK
 case 36:
 YY_RULE_SETUP
-#line 121 "lexical_analyzer.l"
+#line 128 "lexical_analyzer.l"
 {
-    fprintf(output, "TOKEN_AND_OP\n");
+    return AND_OP;
 }
 	YY_BREAK
 case 37:
 YY_RULE_SETUP
-#line 125 "lexical_analyzer.l"
+#line 132 "lexical_analyzer.l"
 {
-    fprintf(output, "TOKEN_NOT\n");
+    return NOT;
 }
 	YY_BREAK
 case 38:
 YY_RULE_SETUP
-#line 128 "lexical_analyzer.l"
+#line 135 "lexical_analyzer.l"
 {
-    fprintf(output, "TOKEN_ADD\n");
+    return ADD;
 }
 	YY_BREAK
 case 39:
 YY_RULE_SETUP
-#line 131 "lexical_analyzer.l"
+#line 138 "lexical_analyzer.l"
 {
-    fprintf(output, "TOKEN_SUB\n");
+    return SUB;
 }
 	YY_BREAK
 case 40:
 YY_RULE_SETUP
-#line 134 "lexical_analyzer.l"
+#line 141 "lexical_analyzer.l"
 {
-    fprintf(output, "TOKEN_MUL\n");
+    return MUL;
 }
 	YY_BREAK
 case 41:
 YY_RULE_SETUP
-#line 137 "lexical_analyzer.l"
+#line 144 "lexical_analyzer.l"
 {
-    fprintf(output, "TOKEN_DIV\n");
+    return DIV;
 }
 	YY_BREAK
 case 42:
 YY_RULE_SETUP
-#line 140 "lexical_analyzer.l"
+#line 147 "lexical_analyzer.l"
 {
-    fprintf(output, "TOKEN_INC_OP\n");
+    return INC_OP;
 }
 	YY_BREAK
 case 43:
 YY_RULE_SETUP
-#line 143 "lexical_analyzer.l"
+#line 150 "lexical_analyzer.l"
 {
-    fprintf(output, "TOKEN_DEC_OP\n");
+    return DEC_OP;
 }
 	YY_BREAK
 case 44:
 YY_RULE_SETUP
-#line 146 "lexical_analyzer.l"
+#line 153 "lexical_analyzer.l"
 {
-    fprintf(output, "TOKEN_ADD_ASSIGN\n");
+    return ADD_ASSIGN;
 }
 	YY_BREAK
 case 45:
 YY_RULE_SETUP
-#line 149 "lexical_analyzer.l"
+#line 156 "lexical_analyzer.l"
 {
-    fprintf(output, "TOKEN_SUB_ASSIGN\n");
+    return SUB_ASSIGN;
 }
 	YY_BREAK
 case 46:
 YY_RULE_SETUP
-#line 152 "lexical_analyzer.l"
+#line 159 "lexical_analyzer.l"
 {
-    fprintf(output, "TOKEN_MUL_ASSIGN\n");
+    return MUL_ASSIGN;
 }
 	YY_BREAK
 case 47:
 YY_RULE_SETUP
-#line 155 "lexical_analyzer.l"
+#line 162 "lexical_analyzer.l"
 {
-    fprintf(output, "TOKEN_DIV_ASSIGN\n");
+    return DIV_ASSIGN;
 }
 	YY_BREAK
 case 48:
 YY_RULE_SETUP
-#line 158 "lexical_analyzer.l"
+#line 165 "lexical_analyzer.l"
 {
-    fprintf(output, "TOKEN_AND_ASSIGN\n");
+    return AND_ASSIGN;
 }
 	YY_BREAK
 case 49:
 YY_RULE_SETUP
-#line 161 "lexical_analyzer.l"
+#line 168 "lexical_analyzer.l"
 {
-    fprintf(output, "TOKEN_OR_ASSIGN\n");
+    return OR_ASSIGN;
 }
 	YY_BREAK
 case 50:
 YY_RULE_SETUP
-#line 164 "lexical_analyzer.l"
+#line 171 "lexical_analyzer.l"
 {
-    fprintf(output, "TOKEN_XOR_ASSIGN\n");
+    return XOR_ASSIGN;
 }
 	YY_BREAK
 case 51:
 /* rule 51 can match eol */
 YY_RULE_SETUP
-#line 168 "lexical_analyzer.l"
+#line 175 "lexical_analyzer.l"
 {
-    fprintf(output, "TOKEN_CHAR_CONST\n");
+    return CHAR_CONST;
 }
 	YY_BREAK
 case 52:
 YY_RULE_SETUP
-#line 171 "lexical_analyzer.l"
+#line 178 "lexical_analyzer.l"
 {
-    fprintf(output, "TOKEN_INT_CONST\n");
+    return INT_CONST;
 }
 	YY_BREAK
 case 53:
 YY_RULE_SETUP
-#line 174 "lexical_analyzer.l"
+#line 181 "lexical_analyzer.l"
 {
-    fprintf(output, "TOKEN_IDENTIFIER\n");
+    return IDENTIFIER;
 }
 	YY_BREAK
 case 54:
 YY_RULE_SETUP
-#line 177 "lexical_analyzer.l"
+#line 184 "lexical_analyzer.l"
 {
-    fprintf(output, "Error: Invalid numeric constant or identifier.\n");
+    printf("Error: Invalid numeric constant or identifier.\n");
 }
 	YY_BREAK
 case 55:
 /* rule 55 can match eol */
 YY_RULE_SETUP
-#line 181 "lexical_analyzer.l"
+#line 188 "lexical_analyzer.l"
 {
 	if(yytext[0]=='#')
 	{ 
-    	fprintf(output,"Error: Unmached comment at line no. %d\n",line_count);
+    	printf("Error: Unmached comment at line no. %d\n",line_count);
     }
     else if(yytext[0]=='"')
     {
-    	fprintf(output,"Error: Incomplete character at line no. %d\n",line_count);
+    	printf("Error: Incomplete character at line no. %d\n",line_count);
     }
     else
     {
-    	fprintf(output,"Error: Unrecognized character at lone no. %d.\n", line_count);
+    	printf("Error: Unrecognized character at lone no. %d.\n", line_count);
     }
     return 0;
 }
 	YY_BREAK
 case 56:
 YY_RULE_SETUP
-#line 197 "lexical_analyzer.l"
+#line 204 "lexical_analyzer.l"
 ECHO;
 	YY_BREAK
-#line 1211 "lex.yy.c"
+#line 1218 "lex.yy.c"
 case YY_STATE_EOF(INITIAL):
 	yyterminate();
 
@@ -2212,17 +2219,7 @@ void yyfree (void * ptr )
 
 #define YYTABLES_NAME "yytables"
 
-#line 197 "lexical_analyzer.l"
+#line 204 "lexical_analyzer.l"
 
 
-/* Code Section */
-int main (){
-    FILE* input = fopen("./Test Cases/test7.txt", "r"); 
-    yyin = input;
-    output = fopen("Phase1_Tokens.txt", "w");
-    fprintf(output,  "The resulted tokens are:\n");
-    yylex();
-    fclose(output);
-    fclose(input);
-    return 0;
-}
+
