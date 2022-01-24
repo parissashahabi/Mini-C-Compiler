@@ -63,6 +63,7 @@ SINGLE_LINE_COMMENT "#"[^!].*
 
 "." {
     return('.');
+}
 "(" {
     return('(');
 }

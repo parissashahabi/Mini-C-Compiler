@@ -13,7 +13,6 @@
 %right ADD_ASSIGN SUB_ASSIGN
 %right ASSIGN
 
-
 %left OR_OP
 %left AND_OP
 %left OR
@@ -53,8 +52,8 @@ V :
             | ;
 
 variable_declaration_identifier :
-            identifier { ins(); } identifier_array_type
-            | expression { ins(); };
+            identifier identifier_array_type
+            | expression;
 
 identifier_array_type :
             '['​ initilization_params
@@ -78,13 +77,14 @@ function_declaration :
             function_declaration_type function_declaration_param_statement;
 
 function_declaration_type :
-            type_specifier identifier ​ '(' { ins();};
+            type_specifier identifier ​ '(';
 
 function_declaration_param_statement :
             params ​ ')'​ statement;
 
 params :
-            parameters_list | ;
+            parameters_list 
+            | ;
 
 parameters_list :
             type_specifier parameters_identifier_list;
@@ -97,7 +97,7 @@ parameters_identifier_list_breakup :
             | ;
 
 param_identifier : 
-            identifier { ins(); } param_identifier_breakup;
+            identifier param_identifier_breakup;
 
 param_identifier_breakup : ​ 
             '['​ ​ ']'
@@ -144,7 +144,7 @@ break_statement :
             BREAK ​ '.'​ ;
 
 string_initilization : 
-            assignment_operator string_constant { insV(); };
+            assignment_operator string_constant;
 
 array_initialization : 
             assignment_operator ​ '{'​ array_int_declarations ​ '}'​ ;
@@ -252,9 +252,9 @@ A :
             | ;
 
 constant :
-            integer_constant { insV(); }
-            | string_constant { insV(); }
-            | character_constant { insV(); };
+            integer_constant
+            | string_constant
+            | character_constant;
 
 %%
 
