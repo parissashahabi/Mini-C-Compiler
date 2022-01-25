@@ -34,8 +34,8 @@
 /* Undocumented macros, especially those whose name start with YY_,
    are private implementation details.  Do not rely on them.  */
 
-#ifndef YY_YY_PARSER_TAB_H_INCLUDED
-# define YY_YY_PARSER_TAB_H_INCLUDED
+#ifndef YY_YY_Y_TAB_H_INCLUDED
+# define YY_YY_Y_TAB_H_INCLUDED
 /* Debug traces.  */
 #ifndef YYDEBUG
 # define YYDEBUG 0
@@ -64,34 +64,92 @@ extern int yydebug;
     INT_CONST = 270,
     CHAR_CONST = 271,
     ELSE = 272,
-    XOR_ASSIGN = 273,
-    OR_ASSIGN = 274,
-    AND_ASSIGN = 275,
-    MUL_ASSIGN = 276,
-    DIV_ASSIGN = 277,
-    ADD_ASSIGN = 278,
-    SUB_ASSIGN = 279,
-    ASSIGN = 280,
-    OR_OP = 281,
-    AND_OP = 282,
-    OR = 283,
-    XOR = 284,
-    AND = 285,
-    EQUAL = 286,
-    NOTEQUAL = 287,
-    LESSOREQUAL = 288,
-    LESS = 289,
-    GREATEROREQUAL = 290,
-    GREATER = 291,
-    ADD = 292,
-    SUB = 293,
-    MUL = 294,
-    DIV = 295,
-    NOT = 296,
-    INC_OP = 297,
-    DEC_OP = 298
+    DOT = 273,
+    COMMA = 274,
+    RIGHTBEACK = 275,
+    LEFTBRACK = 276,
+    RIGHTBRACE = 277,
+    LEFTBRACE = 278,
+    RIGHTPAREN = 279,
+    LEFTPAREN = 280,
+    XOR_ASSIGN = 281,
+    OR_ASSIGN = 282,
+    AND_ASSIGN = 283,
+    MUL_ASSIGN = 284,
+    DIV_ASSIGN = 285,
+    ADD_ASSIGN = 286,
+    SUB_ASSIGN = 287,
+    ASSIGN = 288,
+    OR_OP = 289,
+    AND_OP = 290,
+    OR = 291,
+    XOR = 292,
+    AND = 293,
+    EQUAL = 294,
+    NOTEQUAL = 295,
+    LESSOREQUAL = 296,
+    LESS = 297,
+    GREATEROREQUAL = 298,
+    GREATER = 299,
+    ADD = 300,
+    SUB = 301,
+    MUL = 302,
+    DIV = 303,
+    NOT = 304,
+    INC_OP = 305,
+    DEC_OP = 306
   };
 #endif
+/* Tokens.  */
+#define IF 258
+#define ELSEIF 259
+#define CONTINUE 260
+#define INT 261
+#define CHAR 262
+#define RETURN 263
+#define MAIN 264
+#define VOID 265
+#define WHILE 266
+#define FOR 267
+#define BREAK 268
+#define IDENTIFIER 269
+#define INT_CONST 270
+#define CHAR_CONST 271
+#define ELSE 272
+#define DOT 273
+#define COMMA 274
+#define RIGHTBEACK 275
+#define LEFTBRACK 276
+#define RIGHTBRACE 277
+#define LEFTBRACE 278
+#define RIGHTPAREN 279
+#define LEFTPAREN 280
+#define XOR_ASSIGN 281
+#define OR_ASSIGN 282
+#define AND_ASSIGN 283
+#define MUL_ASSIGN 284
+#define DIV_ASSIGN 285
+#define ADD_ASSIGN 286
+#define SUB_ASSIGN 287
+#define ASSIGN 288
+#define OR_OP 289
+#define AND_OP 290
+#define OR 291
+#define XOR 292
+#define AND 293
+#define EQUAL 294
+#define NOTEQUAL 295
+#define LESSOREQUAL 296
+#define LESS 297
+#define GREATEROREQUAL 298
+#define GREATER 299
+#define ADD 300
+#define SUB 301
+#define MUL 302
+#define DIV 303
+#define NOT 304
+#define INC_OP 305
+#define DEC_OP 306
 
 /* Value type.  */
 #if ! defined YYSTYPE && ! defined YYSTYPE_IS_DECLARED
@@ -105,4 +163,4 @@ extern YYSTYPE yylval;
 
 int yyparse (void);
 
-#endif /* !YY_YY_PARSER_TAB_H_INCLUDED  */
+#endif /* !YY_YY_Y_TAB_H_INCLUDED  */

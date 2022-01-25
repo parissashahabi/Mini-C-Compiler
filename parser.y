@@ -7,10 +7,20 @@
     int flag=0;
 %}
 
-%token IDENTIFIER INT_CONST CHAR_CONST FOR WHILE IF ELSEIF ELSE
-%token VOID INT CHAR BREAK CONTINUE
-%token MAIN RETURN
-%token DOT COMMA RIGHTBEACK LEFTBRACK RIGHTBRACE LEFTBRACE RIGHTPAREN LEFTPAREN
+
+
+%nonassoc IF ELSEIF CONTINUE
+%token INT CHAR
+%token RETURN MAIN
+%token VOID
+%token WHILE FOR
+%token BREAK
+
+%token IDENTIFIER
+%token INT_CONST CHAR_CONST
+
+
+%nonassoc ELSE
 
 %right XOR_ASSIGN OR_ASSIGN
 %right AND_ASSIGN
@@ -27,11 +37,14 @@
 %left LESSOREQUAL LESS GREATEROREQUAL GREATER
 %left ADD SUB
 %left MUL DIV
+
 %right NOT
 %left INC_OP DEC_OP
 %start program
 
 %%
+
+
 program : 
             declaration_list;
 
@@ -47,26 +60,29 @@ declaration :
             | function_declaration;
 
 variable_declaration :
-            type_specifier variable_declaration_list DOT;
+            type_specifier variable_declaration_list 'D';
 
 variable_declaration_list :
             variable_declaration_identifier V;
 
 V :
-            COMMA variable_declaration_list
+            'C' variable_declaration_list
             | ;
 
 variable_declaration_identifier :
-            IDENTIFIER identifier_array_type
-            | expression;
+            IDENTIFIER vdi;
+
+vdi : 
+            identifier_array_type 
+            | ASSIGN expression ; 
 
 identifier_array_type :
-            LEFTBRACK initilization_params
+            'L' initilization_params
             | ;
 
 initilization_params :
-            INT_CONST RIGHTBEACK initilization
-            | RIGHTBEACK string_initilization;
+            INT_CONST 'R' initilization
+            | 'R' string_initilization;
 
 initilization :
             string_initilization
@@ -82,10 +98,10 @@ function_declaration :
             function_declaration_type function_declaration_param_statement;
 
 function_declaration_type :
-            type_specifier IDENTIFIER LEFTPAREN;
+            type_specifier IDENTIFIER 'S';
 
 function_declaration_param_statement :
-            params RIGHTPAREN statement;
+            params 'P' statement;
 
 params :
             parameters_list 
@@ -98,14 +114,14 @@ parameters_identifier_list :
             param_identifier parameters_identifier_list_breakup;
 
 parameters_identifier_list_breakup :
-            COMMA parameters_list
+            'C' parameters_list
             | ;
 
 param_identifier : 
             IDENTIFIER param_identifier_breakup;
 
 param_identifier_breakup :
-            LEFTBRACK RIGHTBEACK
+            'L' 'R'
             | ;
 
 statement :
@@ -115,49 +131,48 @@ statement :
             | variable_declaration;
 
 compound_statement : 
-            LEFTBRACE statment_list RIGHTBRACE ;
+            'W' statment_list 'Q' ;
 
 statment_list : 
             statement statment_list
             | ;
 
 expression_statment : 
-            expression DOT
-            | DOT ;
+            expression 'D'
+            | 'D' ;
 
 conditional_statements : 
-            IF LEFTPAREN simple_expression RIGHTPAREN statement
-            conditional_statements_breakup;
+            IF 'S' simple_expression 'P' statement conditional_statements_breakup;
 
 conditional_statements_breakup : 
             ELSE statement
             | ;
 
 iterative_statements : 
-            WHILE LEFTPAREN simple_expression RIGHTPAREN statement
-            | FOR LEFTPAREN expression COMMA simple_expression COMMA expression RIGHTPAREN ;
+            WHILE 'S' simple_expression 'P' statement
+            | FOR 'S' expression 'C' simple_expression 'C' expression 'P' ;
 
 return_statement : 
             RETURN return_statement_breakup;
 
 return_statement_breakup : 
-            DOT
-            | expression DOT ;
+            'D'
+            | expression 'D' ;
 
 break_statement : 
-            BREAK DOT ;
+            BREAK 'D' ;
 
 string_initilization : 
             ASSIGN CHAR_CONST;
 
 array_initialization : 
-            ASSIGN LEFTBRACE array_int_declarations RIGHTBRACE ;
+            ASSIGN 'W' array_int_declarations 'Q' ;
 
 array_int_declarations : 
             INT_CONST array_int_declarations_breakup;
 
 array_int_declarations_breakup : 
-            COMMA array_int_declarations
+            'C' array_int_declarations
             | ;
 
 expression : 
@@ -231,16 +246,16 @@ mutable :
             | mutable mutable_breakup;
 
 mutable_breakup : 
-            LEFTBRACK expression RIGHTBEACK
-            | DOT IDENTIFIER;
+            'L' expression 'R'
+            | 'D' IDENTIFIER;
 
 immutable : 
-            LEFTPAREN expression RIGHTPAREN
+            'S' expression 'P'
             | call 
             | constant;
 
 call : 
-            IDENTIFIER LEFTPAREN arguments RIGHTPAREN ;
+            IDENTIFIER 'S' arguments 'P' ;
 
 arguments : 
             arguments_list 
@@ -250,7 +265,7 @@ arguments_list :
             expression A;
 
 A : 
-            COMMA expression A
+            'C' expression A
             | ;
 
 constant :

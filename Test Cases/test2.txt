@@ -1,9 +1,10 @@
 int main(){
-    int a=2,b,c,d,e,f,g,h.
+    int a=2.
+    int b,c,d,e,f,g,h.
 
     c=a+b.
-    d=a*b.
-    e=a/b.
+    int v.
+    e=a+b.
    
     g=a&&b.
     h=a||b.

@@ -828,324 +828,329 @@ case 4:
 /* rule 4 can match eol */
 YY_RULE_SETUP
 #line 25 "lexical_analyzer.l"
-{printf("kir2: %s", yytext);} 
+{printf(" /newl: %s", yytext);} 
 	YY_BREAK
 case 5:
 YY_RULE_SETUP
-#line 27 "lexical_analyzer.l"
+#line 28 "lexical_analyzer.l"
 {
-    printf("kir6: %s", yytext);
+    printf(" /inti: %s", yytext);
     return INT;
 }
 	YY_BREAK
 case 6:
 YY_RULE_SETUP
-#line 31 "lexical_analyzer.l"
+#line 32 "lexical_analyzer.l"
 {
     return CHAR;
 }
 	YY_BREAK
 case 7:
 YY_RULE_SETUP
-#line 34 "lexical_analyzer.l"
+#line 35 "lexical_analyzer.l"
 {
     return IF;
 }
 	YY_BREAK
 case 8:
 YY_RULE_SETUP
-#line 37 "lexical_analyzer.l"
+#line 38 "lexical_analyzer.l"
 {
     return ELSE;
 }
 	YY_BREAK
 case 9:
 YY_RULE_SETUP
-#line 40 "lexical_analyzer.l"
+#line 41 "lexical_analyzer.l"
 {
     return ELSEIF;
 }
 	YY_BREAK
 case 10:
 YY_RULE_SETUP
-#line 43 "lexical_analyzer.l"
+#line 44 "lexical_analyzer.l"
 {
     return WHILE;
 }
 	YY_BREAK
 case 11:
 YY_RULE_SETUP
-#line 46 "lexical_analyzer.l"
+#line 47 "lexical_analyzer.l"
 {
     return FOR;
 }
 	YY_BREAK
 case 12:
 YY_RULE_SETUP
-#line 49 "lexical_analyzer.l"
+#line 50 "lexical_analyzer.l"
 {
     return RETURN ;
 }
 	YY_BREAK
 case 13:
 YY_RULE_SETUP
-#line 52 "lexical_analyzer.l"
+#line 53 "lexical_analyzer.l"
 {
     return VOID ;
 }
 	YY_BREAK
 case 14:
 YY_RULE_SETUP
-#line 55 "lexical_analyzer.l"
+#line 56 "lexical_analyzer.l"
 {
     return CONTINUE;
 }
 	YY_BREAK
 case 15:
 YY_RULE_SETUP
-#line 58 "lexical_analyzer.l"
+#line 59 "lexical_analyzer.l"
 {
     return BREAK;
 }
 	YY_BREAK
 case 16:
 YY_RULE_SETUP
-#line 62 "lexical_analyzer.l"
+#line 63 "lexical_analyzer.l"
 {
-    return DOT;
+    printf(" /dot: %s", yytext);
+    return ('D') ;
 }
 	YY_BREAK
 case 17:
 YY_RULE_SETUP
-#line 65 "lexical_analyzer.l"
+#line 67 "lexical_analyzer.l"
 {
-    printf("kir5: %s", yytext);
-    return LEFTPAREN;
+    printf(" /leftp: %s", yytext);
+    return ('S');
 }
 	YY_BREAK
 case 18:
 YY_RULE_SETUP
-#line 69 "lexical_analyzer.l"
+#line 71 "lexical_analyzer.l"
 {
-    printf("kir4: %s", yytext);
-    return RIGHTPAREN;
+    printf(" /rightp: %s", yytext);
+    return ('P');
 }
 	YY_BREAK
 case 19:
 YY_RULE_SETUP
-#line 73 "lexical_analyzer.l"
+#line 75 "lexical_analyzer.l"
 {
-    printf("kir3: %s", yytext);
-    return LEFTBRACE;
+    printf(" /lrftb: %s", yytext);
+    return ('W');
 }
 	YY_BREAK
 case 20:
 YY_RULE_SETUP
-#line 77 "lexical_analyzer.l"
+#line 79 "lexical_analyzer.l"
 {
-    printf("kir: %s", yytext);
-    return RIGHTBRACE;
+    printf(" /rightb: %s", yytext);
+    return ('Q');
 }
 	YY_BREAK
 case 21:
 YY_RULE_SETUP
-#line 81 "lexical_analyzer.l"
+#line 83 "lexical_analyzer.l"
 {
-    return LEFTBRACK;
+    return ('L');
 }
 	YY_BREAK
 case 22:
 YY_RULE_SETUP
-#line 84 "lexical_analyzer.l"
+#line 86 "lexical_analyzer.l"
 {
-    return RIGHTBEACK;
+    return ('R');
 }
 	YY_BREAK
 case 23:
 YY_RULE_SETUP
-#line 87 "lexical_analyzer.l"
+#line 89 "lexical_analyzer.l"
 {
-    return COMMA;
+    return ('C');
 }
 	YY_BREAK
 case 24:
 YY_RULE_SETUP
-#line 91 "lexical_analyzer.l"
+#line 93 "lexical_analyzer.l"
 {
+
+    printf(" /assign: %s", yytext);
     return ASSIGN;
 }
 	YY_BREAK
 case 25:
 YY_RULE_SETUP
-#line 94 "lexical_analyzer.l"
+#line 98 "lexical_analyzer.l"
 {
     return LESS;
 }
 	YY_BREAK
 case 26:
 YY_RULE_SETUP
-#line 97 "lexical_analyzer.l"
+#line 101 "lexical_analyzer.l"
 {
     return LESSOREQUAL;
 }
 	YY_BREAK
 case 27:
 YY_RULE_SETUP
-#line 100 "lexical_analyzer.l"
+#line 104 "lexical_analyzer.l"
 {
     return EQUAL;
 }
 	YY_BREAK
 case 28:
 YY_RULE_SETUP
-#line 103 "lexical_analyzer.l"
+#line 107 "lexical_analyzer.l"
 {
     return NOTEQUAL;
 }
 	YY_BREAK
 case 29:
 YY_RULE_SETUP
-#line 106 "lexical_analyzer.l"
+#line 110 "lexical_analyzer.l"
 {
     return GREATER;
 }
 	YY_BREAK
 case 30:
 YY_RULE_SETUP
-#line 109 "lexical_analyzer.l"
+#line 113 "lexical_analyzer.l"
 {
     return GREATEROREQUAL;
 }
 	YY_BREAK
 case 31:
 YY_RULE_SETUP
-#line 112 "lexical_analyzer.l"
+#line 116 "lexical_analyzer.l"
 {
     return OR;
 }
 	YY_BREAK
 case 32:
 YY_RULE_SETUP
-#line 115 "lexical_analyzer.l"
+#line 119 "lexical_analyzer.l"
 {
     return AND;
 }
 	YY_BREAK
 case 33:
 YY_RULE_SETUP
-#line 118 "lexical_analyzer.l"
+#line 122 "lexical_analyzer.l"
 {
     return XOR;
 }
 	YY_BREAK
 case 34:
 YY_RULE_SETUP
-#line 121 "lexical_analyzer.l"
+#line 125 "lexical_analyzer.l"
 {
     return OR_OP;
 }
 	YY_BREAK
 case 35:
 YY_RULE_SETUP
-#line 124 "lexical_analyzer.l"
+#line 128 "lexical_analyzer.l"
 {
     return AND_OP;
 }
 	YY_BREAK
 case 36:
 YY_RULE_SETUP
-#line 128 "lexical_analyzer.l"
+#line 132 "lexical_analyzer.l"
 {
     return NOT;
 }
 	YY_BREAK
 case 37:
 YY_RULE_SETUP
-#line 131 "lexical_analyzer.l"
+#line 135 "lexical_analyzer.l"
 {
+    printf(" /add: %s", yytext);
     return ADD;
 }
 	YY_BREAK
 case 38:
 YY_RULE_SETUP
-#line 134 "lexical_analyzer.l"
+#line 139 "lexical_analyzer.l"
 {
     return SUB;
 }
 	YY_BREAK
 case 39:
 YY_RULE_SETUP
-#line 137 "lexical_analyzer.l"
+#line 142 "lexical_analyzer.l"
 {
+    printf(" /mult: %s", yytext);
     return MUL;
 }
 	YY_BREAK
 case 40:
 YY_RULE_SETUP
-#line 140 "lexical_analyzer.l"
+#line 146 "lexical_analyzer.l"
 {
     return DIV;
 }
 	YY_BREAK
 case 41:
 YY_RULE_SETUP
-#line 143 "lexical_analyzer.l"
+#line 149 "lexical_analyzer.l"
 {
     return INC_OP;
 }
 	YY_BREAK
 case 42:
 YY_RULE_SETUP
-#line 146 "lexical_analyzer.l"
+#line 152 "lexical_analyzer.l"
 {
     return DEC_OP;
 }
 	YY_BREAK
 case 43:
 YY_RULE_SETUP
-#line 149 "lexical_analyzer.l"
+#line 155 "lexical_analyzer.l"
 {
     return ADD_ASSIGN;
 }
 	YY_BREAK
 case 44:
 YY_RULE_SETUP
-#line 152 "lexical_analyzer.l"
+#line 158 "lexical_analyzer.l"
 {
     return SUB_ASSIGN;
 }
 	YY_BREAK
 case 45:
 YY_RULE_SETUP
-#line 155 "lexical_analyzer.l"
+#line 161 "lexical_analyzer.l"
 {
     return MUL_ASSIGN;
 }
 	YY_BREAK
 case 46:
 YY_RULE_SETUP
-#line 158 "lexical_analyzer.l"
+#line 164 "lexical_analyzer.l"
 {
     return DIV_ASSIGN;
 }
 	YY_BREAK
 case 47:
 YY_RULE_SETUP
-#line 161 "lexical_analyzer.l"
+#line 167 "lexical_analyzer.l"
 {
     return AND_ASSIGN;
 }
 	YY_BREAK
 case 48:
 YY_RULE_SETUP
-#line 164 "lexical_analyzer.l"
+#line 170 "lexical_analyzer.l"
 {
     return OR_ASSIGN;
 }
 	YY_BREAK
 case 49:
 YY_RULE_SETUP
-#line 167 "lexical_analyzer.l"
+#line 173 "lexical_analyzer.l"
 {
     return XOR_ASSIGN;
 }
@@ -1153,28 +1158,30 @@ YY_RULE_SETUP
 case 50:
 /* rule 50 can match eol */
 YY_RULE_SETUP
-#line 171 "lexical_analyzer.l"
+#line 177 "lexical_analyzer.l"
 {
     return CHAR_CONST;
 }
 	YY_BREAK
 case 51:
 YY_RULE_SETUP
-#line 174 "lexical_analyzer.l"
+#line 180 "lexical_analyzer.l"
 {
+    printf(" /intconst: %s", yytext);
     return INT_CONST;
 }
 	YY_BREAK
 case 52:
 YY_RULE_SETUP
-#line 177 "lexical_analyzer.l"
+#line 184 "lexical_analyzer.l"
 {
+    printf(" /id: %s", yytext);
     return IDENTIFIER;
 }
 	YY_BREAK
 case 53:
 YY_RULE_SETUP
-#line 180 "lexical_analyzer.l"
+#line 188 "lexical_analyzer.l"
 {
     printf("Error: Invalid numeric constant or identifier.\n");
 }
@@ -1182,7 +1189,7 @@ YY_RULE_SETUP
 case 54:
 /* rule 54 can match eol */
 YY_RULE_SETUP
-#line 184 "lexical_analyzer.l"
+#line 192 "lexical_analyzer.l"
 {
 	if(yytext[0]=='#')
 	{ 
@@ -1201,10 +1208,10 @@ YY_RULE_SETUP
 	YY_BREAK
 case 55:
 YY_RULE_SETUP
-#line 200 "lexical_analyzer.l"
+#line 208 "lexical_analyzer.l"
 ECHO;
 	YY_BREAK
-#line 1208 "lex.yy.c"
+#line 1215 "lex.yy.c"
 case YY_STATE_EOF(INITIAL):
 	yyterminate();
 
@@ -2209,7 +2216,7 @@ void yyfree (void * ptr )
 
 #define YYTABLES_NAME "yytables"
 
-#line 200 "lexical_analyzer.l"
+#line 208 "lexical_analyzer.l"
 
 
 

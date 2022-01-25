@@ -22,10 +22,11 @@ SINGLE_LINE_COMMENT "#"[^!].*
 [ \f\v\r\t]+ {}
 
 {BLOCK_COMMENT} | 
-{SINGLE_LINE_COMMENT}  {printf("kir2: %s", yytext);} 
+{SINGLE_LINE_COMMENT}  {printf(" /newl: %s", yytext);} 
+
 
 "int" {
-    printf("kir6: %s", yytext);
+    printf(" /inti: %s", yytext);
     return INT;
 }
 "char" {
@@ -60,35 +61,38 @@ SINGLE_LINE_COMMENT "#"[^!].*
 }
 
 "." {
-    return DOT;
+    printf(" /dot: %s", yytext);
+    return ('D') ;
 }
 "(" {
-    printf("kir5: %s", yytext);
-    return LEFTPAREN;
+    printf(" /leftp: %s", yytext);
+    return ('S');
 }
 ")" {
-    printf("kir4: %s", yytext);
-    return RIGHTPAREN;
+    printf(" /rightp: %s", yytext);
+    return ('P');
 }
 "{" {
-    printf("kir3: %s", yytext);
-    return LEFTBRACE;
+    printf(" /lrftb: %s", yytext);
+    return ('W');
 }
 "}" {
-    printf("kir: %s", yytext);
-    return RIGHTBRACE;
+    printf(" /rightb: %s", yytext);
+    return ('Q');
 }
 "[" {
-    return LEFTBRACK;
+    return ('L');
 }
 "]" {
-    return RIGHTBEACK;
+    return ('R');
 }
 "," {
-    return COMMA;
+    return ('C');
 }
 
 "=" {
+
+    printf(" /assign: %s", yytext);
     return ASSIGN;
 }
 "<" {
@@ -129,12 +133,14 @@ SINGLE_LINE_COMMENT "#"[^!].*
     return NOT;
 }
 "+" {
+    printf(" /add: %s", yytext);
     return ADD;
 }
 "-" {
     return SUB;
 }
 "*" {
+    printf(" /mult: %s", yytext);
     return MUL;
 }
 "/" {
@@ -172,9 +178,11 @@ SINGLE_LINE_COMMENT "#"[^!].*
     return CHAR_CONST;
 }
 [-|+]?([1-9][0-9]*|0) {
+    printf(" /intconst: %s", yytext);
     return INT_CONST;
 }
 [a-zA-Z_][a-zA-Z0-9_]* {
+    printf(" /id: %s", yytext);
     return IDENTIFIER;
 }
 [0-9]([a-zA-Z_]|[0-9])* {
