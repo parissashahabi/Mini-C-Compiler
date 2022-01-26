@@ -1085,17 +1085,27 @@ YY_RULE_SETUP
 case 54:
 YY_RULE_SETUP
 #line 84 "lexical_analyzer.l"
-{ return integer_constant;}
+{ 
+        yylval = atoi(yytext);
+        /*printf("%d \n", yylval);*/
+        if(yylval<=32767 && yylval>=-32767)
+        {
+            return integer_constant;
+        }
+        else{
+            yyerror("the limit of integer was rejected");
+        }
+    }
 	YY_BREAK
 case 55:
 YY_RULE_SETUP
-#line 85 "lexical_analyzer.l"
+#line 95 "lexical_analyzer.l"
 {  return identifier;}
 	YY_BREAK
 case 56:
 /* rule 56 can match eol */
 YY_RULE_SETUP
-#line 87 "lexical_analyzer.l"
+#line 97 "lexical_analyzer.l"
 {
 	if(yytext[0]=='#')
 	{ 
@@ -1114,10 +1124,10 @@ YY_RULE_SETUP
 	YY_BREAK
 case 57:
 YY_RULE_SETUP
-#line 103 "lexical_analyzer.l"
+#line 113 "lexical_analyzer.l"
 ECHO;
 	YY_BREAK
-#line 1121 "lex.yy.c"
+#line 1131 "lex.yy.c"
 case YY_STATE_EOF(INITIAL):
 	yyterminate();
 
@@ -2122,5 +2132,5 @@ void yyfree (void * ptr )
 
 #define YYTABLES_NAME "yytables"
 
-#line 103 "lexical_analyzer.l"
+#line 113 "lexical_analyzer.l"
 

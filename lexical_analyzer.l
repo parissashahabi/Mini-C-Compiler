@@ -81,7 +81,17 @@ SINGLE_LINE_COMMENT "#"[^!].*
 \=				{ return assignment_operator;}
 
 \"([^"\\\r\n]|[\\]{ANYTHING})*\" 			{return string_constant;}
-[-|+]?([1-9][0-9]*|0) 	{ return integer_constant;}
+[-|+]?([1-9][0-9]*|0) 	{ 
+        yylval = atoi(yytext);
+        /*printf("%d \n", yylval);*/
+        if(yylval<=32767 && yylval>=-32767)
+        {
+            return integer_constant;
+        }
+        else{
+            yyerror("the limit of integer was rejected");
+        }
+    }
 [a-zA-Z_][a-zA-Z0-9_]*  {  return identifier;}
 
 {ANYTHING} {

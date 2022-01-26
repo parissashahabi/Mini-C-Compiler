@@ -1,7 +1,7 @@
 
 
 void sum(num1,num2,iter){
-    int sum.
+    int sum=67.
     for(int i=0, i<=iter, i++ ){
         sum = sum + num2 + num1.
     }
@@ -26,6 +26,8 @@ void dif(num1, num2 ){
 }
 int main (){
 	char fcd = "dfdf".
-    int num1 = 9800.
+	int num1 = 3248.
+	int num1 = -2.
+    int num1 = 327548.
     dif(2,3,3).
 }
