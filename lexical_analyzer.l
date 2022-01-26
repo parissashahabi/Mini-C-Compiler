@@ -39,17 +39,19 @@ SINGLE_LINE_COMMENT "#"[^!].*
 
 
 
-"else"			{  return ELSE;}
-"while"			{  return WHILE;}
-"for"			{  return FOR;}
-"if"			{  return IF;}
+"else"			{ return ELSE;}
+"while"			{ return WHILE;}
+"for"			{ return FOR;}
+"if"			{ return IF;}
+"elseif"		{ return ELSEIF;}
 
 "int"			{ return INT;}
 "char"			{ return CHAR;}
-"return"		{  return RETURN;}
-"void"			{   return VOID;}
-"break"			{   return BREAK;}
-
+"return"		{ return RETURN;}
+"void"			{ return VOID;}
+"main"          { return MAIN;}
+"break"			{ return BREAK;}
+"continue"      { return CONTINUE;}
 
 "++"			{ return increment_operator; }
 "--"			{ return decrement_operator; }

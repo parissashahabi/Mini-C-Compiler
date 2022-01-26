@@ -6,6 +6,7 @@
 	#include "ctype.h"
 	#include "string.h"
 	int flag=0;
+	int flag2=0;
 
 	#define ANSI_COLOR_RED		"\x1b[31m"
 	#define ANSI_COLOR_GREEN	"\x1b[32m"
@@ -23,13 +24,14 @@
 %token RETURN MAIN
 %token VOID
 %token WHILE FOR 
-%token BREAK
-%expect 1
+%token BREAK CONTINUE
+%expect 4
 
 %token identifier
 %token integer_constant string_constant 
 
-%nonassoc ELSE
+%nonassoc ELSEIF 
+%nonassoc ELSE 
   
 %right XOR_assignment_operator OR_assignment_operator
 %right AND_assignment_operator
@@ -58,7 +60,7 @@ program
 			: declaration_list;
 
 declaration_list
-			: declaration D 
+			: declaration D;
 
 D
 			: declaration_list
@@ -66,7 +68,8 @@ D
 
 declaration
 			: variable_declaration 
-			| function_declaration;
+			| function_declaration
+            | main_function_declaration;
 
 variable_declaration
 			: type_specifier variable_declaration_list '.';
@@ -93,15 +96,23 @@ initilization_params
 
 initilization
 			: string_initilization
-			| array_initialization
 			| ;
 
 type_specifier 
 			: INT | CHAR
 			| VOID ;
 
+main_function_declaration
+            : main_function_declaration_type main_function_declaration_param_statement;
+
+main_function_declaration_type
+            :type_specifier MAIN '(' {flag2=1;};
+
+main_function_declaration_param_statement
+            :')' statement;
+
 function_declaration
-			: function_declaration_type function_declaration_param_statement;
+			: function_declaration_type function_declaration_param_statement {if (flag2==1){yyerror("error");}};
 
 function_declaration_type
 			: type_specifier identifier '(' ;
@@ -110,29 +121,20 @@ function_declaration_param_statement
 			: params ')' statement;
 
 params 
-			: parameters_list | ;
+			: parameters_list;
 
 parameters_list 
-			: type_specifier parameters_identifier_list;
+			: /*type_specifier*/parameters_identifier_list;
 
 parameters_identifier_list 
-			: param_identifier parameters_identifier_list_breakup;
-
-parameters_identifier_list_breakup
-			: ',' parameters_list 
-			| ;
-
-param_identifier 
-			: identifier param_identifier_breakup;
-
-param_identifier_breakup
-			: '[' ']'
-			| ;
+			: identifier
+            | identifier ',' identifier
+            | identifier ',' identifier ',' identifier;
 
 statement 
 			: expression_statment | compound_statement 
 			| conditional_statements | iterative_statements 
-			| return_statement | break_statement 
+			| return_statement | break_statement | continue_statement
 			| variable_declaration;
 
 compound_statement 
@@ -150,7 +152,8 @@ conditional_statements
 			: IF '(' simple_expression ')' statement conditional_statements_breakup;
 
 conditional_statements_breakup
-			: ELSE statement
+            : ELSEIF '(' simple_expression ')' statement conditional_statements_breakup
+			| ELSE statement
 			| ;
 
 iterative_statements 
@@ -167,21 +170,14 @@ return_statement_breakup
 break_statement 
 			: BREAK '.' ;
 
+continue_statement
+            : CONTINUE '.';
+
 string_initilization
 			: assignment_operator string_constant ;
-
-array_initialization
-			: assignment_operator '{' array_int_declarations '}';
-
-array_int_declarations
-			: integer_constant array_int_declarations_breakup;
-
-array_int_declarations_breakup
-			: ',' array_int_declarations 
-			| ;
-
+            
 expression 
-			: mutable expression_breakup
+			: identifier expression_breakup
 			| simple_expression ;
 
 expression_breakup
@@ -237,15 +233,7 @@ MULOP
 			: multiplication_operator | division_operator ;
 
 factor 
-			: immutable | mutable ;
-
-mutable 
-			: identifier 
-			| mutable mutable_breakup;
-
-mutable_breakup
-			: '[' expression ']' 
-			| ';' identifier;
+			: immutable | identifier ;
 
 immutable 
 			: '(' expression ')' 
