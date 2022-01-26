@@ -1755,7 +1755,7 @@ extern char *yytext;
 
 int main()
 {
-	FILE* input = fopen("./Test Cases/test1.txt", "r");
+	FILE* input = fopen("./Test Cases/test2.txt", "r");
 	yyin = input;
     output = fopen("Phase2_Result.txt", "w");
 
