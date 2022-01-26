@@ -1093,7 +1093,7 @@ YY_RULE_SETUP
             return integer_constant;
         }
         else{
-            yyerror("the limit of integer was rejected");
+            return offlimited_integer_constant;
         }
     }
 	YY_BREAK

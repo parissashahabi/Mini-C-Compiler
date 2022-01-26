@@ -1,6 +1,7 @@
 %{
 	void yyerror(char* s);
 	int yylex();
+    int yyabort();
 	#include "stdio.h"
 	#include "stdlib.h"
 	#include "ctype.h"
@@ -28,7 +29,7 @@
 %expect 4
 
 %token identifier
-%token integer_constant string_constant 
+%token integer_constant string_constant off_limit_integer_constant
 
 %nonassoc ELSEIF 
 %nonassoc ELSE 
@@ -84,19 +85,10 @@ V
 variable_declaration_identifier 
 			: identifier vdi;
 
-vdi : identifier_array_type | assignment_operator expression ; 
+vdi 
+            : assignment_operator expression 
+            | ; 
 
-identifier_array_type
-			: '[' initilization_params
-			| ;
-
-initilization_params
-			: integer_constant ']' initilization
-			| ']' string_initilization;
-
-initilization
-			: string_initilization
-			| ;
 
 type_specifier 
 			: INT | CHAR
@@ -172,9 +164,6 @@ break_statement
 
 continue_statement
             : CONTINUE '.';
-
-string_initilization
-			: assignment_operator string_constant ;
 
 expression 
 			: identifier expression_breakup
@@ -254,6 +243,7 @@ A
 
 constant 
 			: integer_constant
+            | off_limit_integer_constant {yyerror("The limit of integers was rejected");}
 			| string_constant;
 
 %%

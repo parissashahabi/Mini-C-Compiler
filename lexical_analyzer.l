@@ -89,7 +89,7 @@ SINGLE_LINE_COMMENT "#"[^!].*
             return integer_constant;
         }
         else{
-            yyerror("the limit of integer was rejected");
+            return off_limit_integer_constant;
         }
     }
 [a-zA-Z_][a-zA-Z0-9_]*  {  return identifier;}

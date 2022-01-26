@@ -25,7 +25,7 @@ void dif(num1, num2 ){
     return dif.
 }
 int main (){
-	char fcd = "dfdf".
+	char fcd = "dfdf.
 	int num1 = 3248.
 	int num1 = -2.
     int num1 = 327548.
