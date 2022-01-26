@@ -1,276 +1,272 @@
-
 %{
-    void yyerror(char* s);
-    int yylex();
-    #include <stdio.h>
-    FILE *output;
-    int flag=0;
+	void yyerror(char* s);
+	int yylex();
+	#include "stdio.h"
+	#include "stdlib.h"
+	#include "ctype.h"
+	#include "string.h"
+	int flag=0;
+
+	#define ANSI_COLOR_RED		"\x1b[31m"
+	#define ANSI_COLOR_GREEN	"\x1b[32m"
+	#define ANSI_COLOR_CYAN		"\x1b[36m"
+	#define ANSI_COLOR_RESET	"\x1b[0m"
+
+	extern char curid[20];
+	extern char curtype[20];
+	extern char curval[20];
+
 %}
 
-
-
-%nonassoc IF ELSEIF CONTINUE
+%nonassoc IF
 %token INT CHAR
 %token RETURN MAIN
 %token VOID
-%token WHILE FOR
+%token WHILE FOR 
 %token BREAK
+%expect 1
 
-%token IDENTIFIER
-%token INT_CONST CHAR_CONST
-
+%token identifier
+%token integer_constant string_constant 
 
 %nonassoc ELSE
+  
+%right XOR_assignment_operator OR_assignment_operator
+%right AND_assignment_operator
+%right multiplication_assignment_operator division_assignment_operator
+%right addition_assignment_operator subtraction_assignment_operator
+%right assignment_operator
 
-%right XOR_ASSIGN OR_ASSIGN
-%right AND_ASSIGN
-%right MUL_ASSIGN DIV_ASSIGN
-%right ADD_ASSIGN SUB_ASSIGN
-%right ASSIGN
+%left OR_operator
+%left AND_operator
+%left pipe_operator
+%left caret_operator
+%left amp_operator
+%left equality_operator inequality_operator
+%left lessthan_assignment_operator lessthan_operator greaterthan_assignment_operator greaterthan_operator
+%left add_operator subtract_operator
+%left multiplication_operator division_operator
 
-%left OR_OP
-%left AND_OP
-%left OR
-%left XOR
-%left AND
-%left EQUAL NOTEQUAL
-%left LESSOREQUAL LESS GREATEROREQUAL GREATER
-%left ADD SUB
-%left MUL DIV
+%right exclamation_operator
+%left increment_operator decrement_operator 
 
-%right NOT
-%left INC_OP DEC_OP
+
 %start program
 
 %%
+program
+			: declaration_list;
 
+declaration_list
+			: declaration D 
 
-program : 
-            declaration_list;
+D
+			: declaration_list
+			| ;
 
-declaration_list : 
-            declaration D;
+declaration
+			: variable_declaration 
+			| function_declaration;
 
-D :
-            declaration_list
-            | ;
+variable_declaration
+			: type_specifier variable_declaration_list '.';
 
-declaration :
-            variable_declaration
-            | function_declaration;
+variable_declaration_list
+			: variable_declaration_identifier V;
 
-variable_declaration :
-            type_specifier variable_declaration_list 'D';
+V
+			: ',' variable_declaration_list 
+			| ;
 
-variable_declaration_list :
-            variable_declaration_identifier V;
+variable_declaration_identifier 
+			: identifier vdi;
 
-V :
-            'C' variable_declaration_list
-            | ;
+vdi : identifier_array_type | assignment_operator expression ; 
 
-variable_declaration_identifier :
-            IDENTIFIER vdi;
+identifier_array_type
+			: '[' initilization_params
+			| ;
 
-vdi : 
-            identifier_array_type 
-            | ASSIGN expression ; 
+initilization_params
+			: integer_constant ']' initilization
+			| ']' string_initilization;
 
-identifier_array_type :
-            'L' initilization_params
-            | ;
+initilization
+			: string_initilization
+			| array_initialization
+			| ;
 
-initilization_params :
-            INT_CONST 'R' initilization
-            | 'R' string_initilization;
+type_specifier 
+			: INT | CHAR
+			| VOID ;
 
-initilization :
-            string_initilization
-            | array_initialization
-            | ;
+function_declaration
+			: function_declaration_type function_declaration_param_statement;
 
-type_specifier :
-            INT
-            | CHAR
-            | VOID;
+function_declaration_type
+			: type_specifier identifier '(' ;
 
-function_declaration :
-            function_declaration_type function_declaration_param_statement;
+function_declaration_param_statement
+			: params ')' statement;
 
-function_declaration_type :
-            type_specifier IDENTIFIER 'S';
+params 
+			: parameters_list | ;
 
-function_declaration_param_statement :
-            params 'P' statement;
+parameters_list 
+			: type_specifier parameters_identifier_list;
 
-params :
-            parameters_list 
-            | ;
+parameters_identifier_list 
+			: param_identifier parameters_identifier_list_breakup;
 
-parameters_list :
-            type_specifier parameters_identifier_list;
+parameters_identifier_list_breakup
+			: ',' parameters_list 
+			| ;
 
-parameters_identifier_list :
-            param_identifier parameters_identifier_list_breakup;
+param_identifier 
+			: identifier param_identifier_breakup;
 
-parameters_identifier_list_breakup :
-            'C' parameters_list
-            | ;
+param_identifier_breakup
+			: '[' ']'
+			| ;
 
-param_identifier : 
-            IDENTIFIER param_identifier_breakup;
+statement 
+			: expression_statment | compound_statement 
+			| conditional_statements | iterative_statements 
+			| return_statement | break_statement 
+			| variable_declaration;
 
-param_identifier_breakup :
-            'L' 'R'
-            | ;
+compound_statement 
+			: '{' statment_list '}' ;
 
-statement :
-            expression_statment | compound_statement
-            | conditional_statements | iterative_statements
-            | return_statement | break_statement
-            | variable_declaration;
+statment_list 
+			: statement statment_list 
+			| ;
 
-compound_statement : 
-            'W' statment_list 'Q' ;
+expression_statment 
+			: expression '.' 
+			| '.' ;
 
-statment_list : 
-            statement statment_list
-            | ;
+conditional_statements 
+			: IF '(' simple_expression ')' statement conditional_statements_breakup;
 
-expression_statment : 
-            expression 'D'
-            | 'D' ;
+conditional_statements_breakup
+			: ELSE statement
+			| ;
 
-conditional_statements : 
-            IF 'S' simple_expression 'P' statement conditional_statements_breakup;
+iterative_statements 
+			: WHILE '(' simple_expression ')' statement 
+			| FOR '(' INT expression ',' simple_expression ',' expression ')';
 
-conditional_statements_breakup : 
-            ELSE statement
-            | ;
+return_statement 
+			: RETURN return_statement_breakup;
 
-iterative_statements : 
-            WHILE 'S' simple_expression 'P' statement
-            | FOR 'S' expression 'C' simple_expression 'C' expression 'P' ;
+return_statement_breakup
+			: '.' 
+			| expression '.' ;
 
-return_statement : 
-            RETURN return_statement_breakup;
+break_statement 
+			: BREAK '.' ;
 
-return_statement_breakup : 
-            'D'
-            | expression 'D' ;
+string_initilization
+			: assignment_operator string_constant ;
 
-break_statement : 
-            BREAK 'D' ;
+array_initialization
+			: assignment_operator '{' array_int_declarations '}';
 
-string_initilization : 
-            ASSIGN CHAR_CONST;
+array_int_declarations
+			: integer_constant array_int_declarations_breakup;
 
-array_initialization : 
-            ASSIGN 'W' array_int_declarations 'Q' ;
+array_int_declarations_breakup
+			: ',' array_int_declarations 
+			| ;
 
-array_int_declarations : 
-            INT_CONST array_int_declarations_breakup;
+expression 
+			: mutable expression_breakup
+			| simple_expression ;
 
-array_int_declarations_breakup : 
-            'C' array_int_declarations
-            | ;
+expression_breakup
+			: assignment_operator expression 
+			| addition_assignment_operator expression 
+			| subtraction_assignment_operator expression 
+			| multiplication_assignment_operator expression 
+			| division_assignment_operator expression 
+			| increment_operator 
+			| decrement_operator ;
 
-expression : 
-            mutable expression_breakup
-            | simple_expression ;
+simple_expression 
+			: and_expression simple_expression_breakup;
 
-expression_breakup : 
-            ASSIGN expression
-            | ADD_ASSIGN expression
-            | SUB_ASSIGN expression
-            | MUL_ASSIGN expression
-            | DIV_ASSIGN expression
-            | INC_OP
-            | DEC_OP ;
+simple_expression_breakup 
+			: OR_operator and_expression simple_expression_breakup | ;
 
-simple_expression : 
-            and_expression simple_expression_breakup;
+and_expression 
+			: unary_relation_expression and_expression_breakup;
 
-simple_expression_breakup : 
-            OR_OP and_expression simple_expression_breakup 
-            | ;
+and_expression_breakup
+			: AND_operator unary_relation_expression and_expression_breakup
+			| ;
 
-and_expression : 
-            unary_relation_expression and_expression_breakup;
+unary_relation_expression 
+			: exclamation_operator unary_relation_expression 
+			| regular_expression ;
 
-and_expression_breakup : 
-            AND_OP unary_relation_expression and_expression_breakup
-            | ;
+regular_expression 
+			: sum_expression regular_expression_breakup;
 
-unary_relation_expression : 
-            NOT unary_relation_expression
-            | regular_expression ;
+regular_expression_breakup
+			: relational_operators sum_expression 
+			| ;
 
-regular_expression : 
-            sum_expression regular_expression_breakup;
+relational_operators 
+			: greaterthan_assignment_operator | lessthan_assignment_operator | greaterthan_operator 
+			| lessthan_operator | equality_operator | inequality_operator ;
 
-regular_expression_breakup : 
-            relational_operators sum_expression
-            | ;
+sum_expression 
+			: sum_expression sum_operators term 
+			| term ;
 
-relational_operators : 
-            GREATEROREQUAL
-            | LESSOREQUAL 
-            | GREATER
-            | LESS
-            | EQUAL
-            | NOTEQUAL;
+sum_operators 
+			: add_operator 
+			| subtract_operator ;
 
-sum_expression : 
-            sum_expression sum_operators term
-            | term ;
+term
+			: term MULOP factor 
+			| factor ;
 
-sum_operators : 
-            ADD
-            | SUB ;
+MULOP 
+			: multiplication_operator | division_operator ;
 
-term : 
-            term MULOP factor
-            | factor ;
+factor 
+			: immutable | mutable ;
 
-MULOP : 
-            MUL
-            | DIV ;
+mutable 
+			: identifier 
+			| mutable mutable_breakup;
 
-factor : 
-            immutable 
-            | mutable ;
+mutable_breakup
+			: '[' expression ']' 
+			| ';' identifier;
 
-mutable : 
-            IDENTIFIER
-            | mutable mutable_breakup;
+immutable 
+			: '(' expression ')' 
+			| call | constant;
 
-mutable_breakup : 
-            'L' expression 'R'
-            | 'D' IDENTIFIER;
+call
+			: identifier '(' arguments ')';
 
-immutable : 
-            'S' expression 'P'
-            | call 
-            | constant;
+arguments 
+			: arguments_list | ;
 
-call : 
-            IDENTIFIER 'S' arguments 'P' ;
+arguments_list 
+			: expression A;
 
-arguments : 
-            arguments_list 
-            | ;
+A
+			: ',' expression A 
+			| ;
 
-arguments_list : 
-            expression A;
-
-A : 
-            'C' expression A
-            | ;
-
-constant :
-            INT_CONST
-            | CHAR_CONST;
+constant 
+			: integer_constant
+			| string_constant;
 
 %%
 
@@ -278,19 +274,26 @@ extern FILE *yyin;
 extern int yylineno;
 extern char *yytext;
 
-/* Code Section */
-int main (){
-    FILE* input = fopen("./Test Cases/test2.txt", "r"); 
-    yyin = input;
-    output = fopen("Phase1_Tokens.txt", "w");
-    fprintf(output,  "results are:\n");
-    yyparse();
-    fclose(output);
-    fclose(input);
-    return 0;
+int main(int argc , char **argv)
+{
+	yyin = fopen(argv[1], "r");
+	yyparse();
+
+	if(flag == 0)
+	{
+		
+	}
 }
 
-void yyerror(char *s){
+void yyerror(char *s)
+{
+	printf("%d %s %s\n", yylineno, s, yytext);
+	flag=1;
+	printf(ANSI_COLOR_RED "Status: Parsing Failed - Invalid\n" ANSI_COLOR_RESET);
+}
 
-    fprintf (output, "Error happend %s %d %s",s, yylineno, yytext);
+
+int yywrap()
+{
+	return 1;
 }
