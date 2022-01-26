@@ -1,22 +1,18 @@
 %{
 	void yyerror(char* s);
 	int yylex();
-    int yyabort();
+
 	#include "stdio.h"
 	#include "stdlib.h"
-	#include "ctype.h"
-	#include "string.h"
+	
 	int flag=0;
-	int flag2=0;
+	int isMainUsed=0;
+
+	FILE *output;
 
 	#define ANSI_COLOR_RED		"\x1b[31m"
 	#define ANSI_COLOR_GREEN	"\x1b[32m"
-	#define ANSI_COLOR_CYAN		"\x1b[36m"
 	#define ANSI_COLOR_RESET	"\x1b[0m"
-
-	extern char curid[20];
-	extern char curtype[20];
-	extern char curval[20];
 
 %}
 
@@ -30,6 +26,7 @@
 
 %token identifier
 %token integer_constant string_constant off_limit_integer_constant
+%token UNMACHED_COMMENT_ERROR INCOMPLETE_CHARACTER_ERROR UNRECOGNIZED_CHARACTER_ERROR
 
 %nonassoc ELSEIF 
 %nonassoc ELSE 
@@ -89,7 +86,6 @@ vdi
             : assignment_operator expression 
             | ; 
 
-
 type_specifier 
 			: INT | CHAR
 			| VOID ;
@@ -98,13 +94,13 @@ main_function_declaration
             : main_function_declaration_type main_function_declaration_param_statement;
 
 main_function_declaration_type
-            :type_specifier MAIN '(' {flag2=1;};
+            :type_specifier MAIN '(' {isMainUsed=1;};
 
 main_function_declaration_param_statement
             :')' statement;
 
 function_declaration
-			: function_declaration_type function_declaration_param_statement {if (flag2==1){yyerror("error");}};
+			: function_declaration_type function_declaration_param_statement {if (isMainUsed==1){yyerror("error");}};
 
 function_declaration_type
 			: type_specifier identifier '(' ;
@@ -252,21 +248,30 @@ extern FILE *yyin;
 extern int yylineno;
 extern char *yytext;
 
-int main(int argc , char **argv)
+int main()
 {
-	yyin = fopen(argv[1], "r");
+	FILE* input = fopen("./Test Cases/test2.txt", "r");
+	yyin = input;
+    output = fopen("Phase2_Result.txt", "w");
+
 	yyparse();
 
 	if(flag == 0)
 	{
-		
+		fprintf(output, "Status: Parsing Complete - Valid\n");
+		printf(ANSI_COLOR_GREEN "Status: Parsing Complete - Valid" ANSI_COLOR_RESET "\n");
 	}
+
+	fclose(output);
+    fclose(input);
 }
 
 void yyerror(char *s)
-{
-	printf("%d %s %s\n", yylineno, s, yytext);
+{	
+	fprintf(output, "%s happened at line no. %d\nlast recognized token was: %s\n", s, yylineno, yytext);
+	printf("%s happened at line no. %d\nlast recognized token was: %s\n", s, yylineno, yytext);
 	flag=1;
+	fprintf(output, "Status: Parsing Failed - Invalid\n");
 	printf(ANSI_COLOR_RED "Status: Parsing Failed - Invalid\n" ANSI_COLOR_RESET);
 }
 

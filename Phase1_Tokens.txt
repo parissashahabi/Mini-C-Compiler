@@ -1,2 +1,0 @@
-results are:
-Error happend syntax error 6 int

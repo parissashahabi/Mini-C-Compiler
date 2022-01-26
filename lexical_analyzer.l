@@ -3,12 +3,7 @@
 	#include <string.h>
 	#include "parser.tab.h"
 
-	#define ANSI_COLOR_RED		"\x1b[31m"
-	#define ANSI_COLOR_GREEN	"\x1b[32m"
 	#define ANSI_COLOR_YELLOW	"\x1b[33m"
-	#define ANSI_COLOR_BLUE		"\x1b[34m"
-	#define ANSI_COLOR_MAGENTA	"\x1b[35m"
-	#define ANSI_COLOR_CYAN		"\x1b[36m"
 	#define ANSI_COLOR_RESET	"\x1b[0m"
 
 %}
@@ -81,6 +76,7 @@ SINGLE_LINE_COMMENT "#"[^!].*
 \=				{ return assignment_operator;}
 
 \"([^"\\\r\n]|[\\]{ANYTHING})*\" 			{return string_constant;}
+
 [-|+]?([1-9][0-9]*|0) 	{ 
         yylval = atoi(yytext);
         /*printf("%d \n", yylval);*/
@@ -91,21 +87,26 @@ SINGLE_LINE_COMMENT "#"[^!].*
         else{
             return off_limit_integer_constant;
         }
-    }
+ }
+
 [a-zA-Z_][a-zA-Z0-9_]*  {  return identifier;}
+
+[0-9]([a-zA-Z_]|[0-9])* {
+    printf(ANSI_COLOR_YELLOW "Error: Invalid numeric constant or identifier at line no. %d\n" ANSI_COLOR_RESET, yylineno) ;
+}
 
 {ANYTHING} {
 	if(yytext[0]=='#')
 	{ 
-    	printf("Error: Unmached comment at line no. %d\n",yylineno);
+    	printf(ANSI_COLOR_YELLOW "Error: Unmached comment at line no. %d\n" ANSI_COLOR_RESET,yylineno);
     }
     else if(yytext[0]=='"')
     {
-    	printf("Error: Incomplete character at line no. %d\n",yylineno);
+    	printf(ANSI_COLOR_YELLOW "Error: Incomplete character at line no. %d\n" ANSI_COLOR_RESET,yylineno);
     }
     else
     {
-    	printf("Error: Unrecognized character at lone no. %d.\n", yylineno);
+    	printf(ANSI_COLOR_YELLOW "Error: Unrecognized character at line no. %d.\n" ANSI_COLOR_RESET, yylineno);
     }
     return 0;
 }
