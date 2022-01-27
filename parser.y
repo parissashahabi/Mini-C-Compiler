@@ -26,7 +26,6 @@
 
 %token identifier
 %token integer_constant string_constant off_limit_integer_constant
-%token UNMACHED_COMMENT_ERROR INCOMPLETE_CHARACTER_ERROR UNRECOGNIZED_CHARACTER_ERROR
 
 %nonassoc ELSEIF 
 %nonassoc ELSE 
@@ -87,7 +86,8 @@ vdi
             | ; 
 
 type_specifier 
-			: INT | CHAR
+			: INT 
+			| CHAR
 			| VOID ;
 
 main_function_declaration
@@ -100,24 +100,24 @@ main_function_declaration_param_statement
             :')' statement;
 
 function_declaration
-			: function_declaration_type function_declaration_param_statement {if (isMainUsed==1){yyerror("error");}};
+			: function_declaration_type function_declaration_param_statement {if (isMainUsed==1){yyerror("Ordinary function is declared after main function, ");}};
 
 function_declaration_type
 			: type_specifier identifier '(' ;
 
 function_declaration_param_statement
-			: params ')' statement;
+			: params ')' compound_statement;
 
 params 
 			: parameters_list;
 
 parameters_list 
-			: /*type_specifier*/parameters_identifier_list;
+			: type_specifier parameters_identifier_list;
 
 parameters_identifier_list 
 			: identifier
-            | identifier ',' identifier
-            | identifier ',' identifier ',' identifier;
+            | identifier ',' type_specifier  identifier
+            | identifier ',' type_specifier identifier ',' type_specifier identifier;
 
 statement 
 			: expression_statment | compound_statement 
@@ -171,8 +171,14 @@ expression_breakup
 			| subtraction_assignment_operator expression 
 			| multiplication_assignment_operator expression 
 			| division_assignment_operator expression 
+			| AND_assignment_operator expression
+			| XOR_assignment_operator expression
+			| OR_assignment_operator expression
 			| increment_operator 
-			| decrement_operator ;
+			| decrement_operator 
+			| amp_operator expression
+			| pipe_operator expression
+			| caret_operator expression;
 
 simple_expression 
 			: and_expression simple_expression_breakup;
@@ -239,7 +245,7 @@ A
 
 constant 
 			: integer_constant
-            | off_limit_integer_constant {yyerror("The limit of integers was rejected");}
+            | off_limit_integer_constant {yyerror("The limit of integers was rejected, ");}
 			| string_constant;
 
 %%
@@ -268,9 +274,9 @@ int main()
 
 void yyerror(char *s)
 {	
-	fprintf(output, "%s happened at line no. %d\nlast recognized token was: %s\n", s, yylineno, yytext);
-	printf("%s happened at line no. %d\nlast recognized token was: %s\n", s, yylineno, yytext);
 	flag=1;
+	fprintf(output, "%s at line no. %d\nlast recognized token was: %s\n", s, yylineno, yytext);
+	printf("%s happened at line no. %d\nlast recognized token was: %s\n", s, yylineno, yytext);
 	fprintf(output, "Status: Parsing Failed - Invalid\n");
 	printf(ANSI_COLOR_RED "Status: Parsing Failed - Invalid\n" ANSI_COLOR_RESET);
 }

@@ -1,1 +1,3 @@
-Status: Parsing Complete - Valid
+Ordinary function is declared after main function,  at line no. 36
+last recognized token was: }
+Status: Parsing Failed - Invalid

@@ -1,16 +1,36 @@
-int main(){
-    int a=2.
-    int b,c,d,e,f,g,h.
 
-    c=a+b.
-    int v.
-    e=a+b.
-   
-    g=a&&b.
-    h=a||b.
-    h=a*(a+b).
-    h=a*a+b*b.
-    h=fun(b).
+
+void sum(num1,num2,iter){
+    int sum=67.
+    for(int i=0, i<=iter, i++ ){
+        sum = sum & num2.
+        s |= f.
+    }
+    return sum.
+}
+
+
+int main (){
+	char fcd = "dfdf".
+	int num1 = 3248.
+	int num1 = -2.
+    sum (n1,n2,n3,n4).
+    int num1 = 5.
+    dif(2,3,3).
+}
+void dif(num1, num2 ){
+    int dif.
+    for(int i=0, i<=iter, i++ ){
+        
+        if (num1 > num2){
+        continue.
+        }
+    dif = sum - num2 - num1*num1/4.
+    }
+    while(1)
+    {
+    	c++.
+    }
     
-    #This Test case contains operator,structure,delimeters,Function.
+    return dif.
 }
