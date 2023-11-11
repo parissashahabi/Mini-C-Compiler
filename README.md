@@ -1,6 +1,5 @@
 # Mike Compiler
 
-- Codes pertaining to projects for Compiler Course at University of Isfahan
 - It comprised of two phases:
   - Lexical Analyzer
   - Parser
