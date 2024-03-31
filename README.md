@@ -25,5 +25,5 @@ gcc -o compiler parser.tab.h parser.tab.c lex.yy.c -ll
 ## Team Members
 
 - Negar Nadian ([@negarndn](https://github.com/negarndn))
-- Parisa Shahabi ([@parissashahabi](https://github.com/parissashahabi))
+- Parisa Shahabinejad ([@parissashahabi](https://github.com/parissashahabi))
 - Nafiseh Momeni ([@nafis-momeni](https://github.com/nafis-momeni))
